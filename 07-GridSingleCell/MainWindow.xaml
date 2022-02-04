@@ -1,0 +1,65 @@
+﻿<Window x:Class="GridSingleCell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GridSingleCell" Width="330" Height="200" MinWidth="330" MinHeight="200">
+
+    <!-- Begin the grid definition. Without any specification of rows or columns, the grid will
+         contain just a single cell.
+
+         Note that we put a single value margin on the grid to provide some breathing room on all
+         sides of the grid. -->
+
+    <Grid Margin="8">
+
+        <!-- Place a static text block. The text block is explicitly aligned to the top and left
+             of the grid cell. The block will be sized automatically to fit the text. -->
+
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="Static Text"/>
+
+        <!-- Place a textbox. The textbox is explicitly aligned to the top of the grid cell. By
+             default, the horizontal alignment is set to "Stretch" which will size the textbox
+             horizontally to the full width of the cell. The margin is set using the left-right,
+             top-bottom syntax. Here we specify a top margin in order to push the box down under
+             the text label. -->
+
+        <TextBox VerticalAlignment="Top" Margin="0,20" Text="Edit Me!"/>
+
+        <!-- Begin definition of a group to hold some additional check boxes. Again the margin
+             spec is used to push the group box down under the preceeding label and textbox. Here
+             we also use the "Padding" property to provide some inner padding on the group box in
+             order to give the child elements some more room without having to specify margins on
+             each one. -->
+
+        <GroupBox Margin="0,48,0,40" Padding="8" Header="Check Boxes">
+
+            <!-- Begin another grid definition to be used as the group box content. Again this
+                 will be a single cell grid and will use a combination of alignments and margins
+                 to position the child elements. -->
+
+            <Grid>
+
+            <!-- Place three check boxes. Each of the check boxes is vertically aligned to the
+                 top of the grid. Note that we play some games with the horizontal alignment
+                 setting the alignment for the first check box to the left side of the grid, the
+                 second box to the grid center, and the third box to the right side of the grid.
+                 This way when the window is resized, the check boxes will appear to spread and
+                 collapse with the group box. -->
+
+                <CheckBox VerticalAlignment="Center" HorizontalAlignment="Left" Content="One"
+                          Click="CheckBoxClick"/>
+                <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center" Content="Two"
+                          Click="CheckBoxClick"/>
+                <CheckBox VerticalAlignment="Center" HorizontalAlignment="Right" Content="Three"
+                          Click="CheckBoxClick"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- The "Close" button is placed aligned to the bottom of the grid and using the default
+             horizontal alignment of "Stretch". We put margins on all four sides which will make
+             the button appear to shrink and grow taking up the remaining space when the window is
+             resized. -->
+
+        <Button VerticalAlignment="Bottom" Margin="8,0" Height="25" Content="Close"
+                Click="CloseButtonClick"/>
+    </Grid>
+</Window>

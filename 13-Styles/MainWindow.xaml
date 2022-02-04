@@ -1,0 +1,136 @@
+﻿<Window x:Class="Styles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Styles" Height="270" Width="350">
+
+    <!-- Here we introduce the "Resources" section. This section, available on just about any XAML
+         item, is where we can create static resources usable by that item or any of its children.
+         These resources can be any number of different types of reusable items. In this sample, we
+         will use this section to introduce the "Style" item.
+    
+         In the previous samples, note that we were creating a group of three radio buttons as well
+         as a group of three checkboxes. Looking back at the "StackPanel" sample, these items all
+         shared certain properties. The margins for all six items were set to "12,0". In addition,
+         the three check boxes shared an event handler and so did the three radio buttons.
+    
+         So instead of repeating these properties for each of the items, wouldn't it be better if
+         we could group these properties into a single collection and then apply that collection to
+         each item. That's exactly what styles are for. -->
+
+    <Window.Resources>
+        
+        <!-- There are different ways to define a style. Here we define a style and give it a key
+             name that we can use later to reference it. The key name can be whatever you like.
+             Since we want to apply this style to our check boxes, we'll call it "CheckBoxStyle".
+        
+             Inside of the style definition, we use "Setter" elements to set our properties. Here
+             we use two different types of setter elements. The first "Setter" is used to set any
+             property on a XAML element. The "Property" tag is used to specify which property we
+             want to set. Since the style doesn't know what type of element it's actually working
+             on, we qualify the property with the element type "CheckBox.Margin". Using the "Value"
+             tag, we specify the property value.
+
+             The second setteris an "EventSetter". This essentially does the same thing as the
+             "Setter" but works strictly on events and their handlers. Here we use the "Event" tag
+             to specify that we're setting the "Click" event handler and pass our event handler
+             name into the "Handler" tag. -->
+
+        <Style x:Key="CheckBoxStyle">
+            <Setter Property="CheckBox.Margin" Value="12,0"/>
+            <EventSetter Event="CheckBox.Click" Handler="CheckBoxClick"/>
+        </Style>
+        
+        <!-- Here we use a different way to define a style. Instead of a key name, we use the
+             "TargetType" tag to specify what types of elements this style should be applied to.
+             Here we specify that this style should be applied to all radio buttons in this window.
+             This way we don't need to reference the style later in the XAML. It is simply applied
+             to any radio button in the window. Also note the "Property" tag in the setter and the
+             "Event" tag in the event setter. Since we've specified the element type "RadioButton",
+             we don't need to qualify those tags and we can simply use "Margin" and "Click". as the
+             values. -->
+
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="Margin" Value="12,0"/>
+            <EventSetter Event="Click" Handler="RadioClick"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- Begin definition of the main stack panel to hold the main controls. -->
+
+    <StackPanel Margin="8">
+
+        <!-- Place a text block and a textbox in the panel. -->
+
+        <TextBlock Text="A TextBox"/>
+        <TextBox/>
+
+        <!-- Place a group box that we'll use to hold three checkboxes. -->
+
+        <GroupBox Margin="0,8" Padding="8" Header="Horizontal Stacked Checks">
+
+            <!-- Create a horizontal stack panel to hold the group box content. -->
+
+            <StackPanel Orientation="Horizontal">
+
+                <!-- Place three checkboxes in the stack panel.
+                
+                     Note that the "Margin" and "Click" tags are no longer used and instead we use
+                     the "Style" tag to specify a style to use. The {StaticResource name} syntax
+                     specifies that our style is defined as a resource and is named using the key
+                     "CheckBoxStyle". -->
+
+                <CheckBox Style="{StaticResource CheckBoxStyle}" Content="One"/>
+                <CheckBox Style="{StaticResource CheckBoxStyle}" Content="Two"/>
+                <CheckBox Style="{StaticResource CheckBoxStyle}" Content="Three"/>
+                
+                <!-- Note that we could have defined the style right in the check box as follows:
+                
+                         <CheckBox Content="One">
+                             <CheckBox.Style>
+                                 <Style>
+                                     <Setter Property="CheckBox.Margin" Value="12,0"/>
+                                     <EventSetter Event="CheckBox.Click" Handler="CheckBoxClick"/>
+                                 </Style>
+                             </CheckBox.Style>
+                         </CheckBox>
+                
+                     Defining the style in this manner applies the style to only that check box.
+                     This obviously defeats the purpose of defining a reusable style in the first
+                     place. There are additional things you can do with styles though (which we'll
+                     talk about in later samples) that make this syntax good to know. -->
+
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Place another group box into the main stack panel to hold three radio buttons. -->
+
+        <GroupBox Margin="0,8" Padding="8" Header="Horizontal Stacked Radios">
+
+            <!-- Create a horizontal stack panel to hold the group box content. -->
+
+            <StackPanel Orientation="Horizontal">
+
+                <!-- Place three radio buttons in the stack panel.
+                
+                     Note that like the check boxes, the "Margin" and "Click" tags are no longer
+                     used. Unlike the check boxes though, we aren't specifying a style. Since our
+                     radio button style defined in the resources section used the "TargetType" tag
+                     to specify the element type, it is applied automatically so we don't have to
+                     do anything special here. -->
+
+                <RadioButton Content="One" IsChecked="True"/>
+                <RadioButton Content="Two"/>
+                <RadioButton Content="Three"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Create the "Close" button. -->
+
+        <Button Height="25" Width="140" Margin="0,8" Click="CloseButtonClick">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Resources/close-icon-16x16.png" Stretch="None"/>
+                <TextBlock Margin="8,0" Text="Close"/>
+            </StackPanel>
+        </Button>
+    </StackPanel>
+</Window>

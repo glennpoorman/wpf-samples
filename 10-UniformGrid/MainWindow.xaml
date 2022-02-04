@@ -1,0 +1,58 @@
+﻿<Window x:Class="UniformGrid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UniformGrid" Width="330" Height="260" MinWidth="330" MinHeight="260">
+
+    <!-- Begin the uniform grid definition. A uniform grid takes the idea of the regular grid and
+         simplifies it quite a bit. In a uniform grid, all cells are the same size. Furthermore,
+         each cell can only contain one content item. With those restrictions in place, you don't
+         need any row or column specifications. Instead the uniform grid places each child element
+         into its own cell in the order that the elements are specified. The exact layout of the
+         grid cells depends on whether or you not you specify the number of rows and/or columns
+         using the "Rows" and "Columns" properties on the grid itself.
+
+         If no rows or columns are specified, the uniform grid will create cells on the fly in
+         the order that the child elements are specified. It's not likely you'll want to use the
+         default arrangement though so the uniform grid allows you to hint at how you want it to
+         be arranged using the "Rows" and "Columns" properties on the uniform grid.
+
+         In our sample below, we want the uniform grid to contain three rows and one column. If we
+         were to let the grid itself handle the arrangment and we were to place three controls into
+         the grid, we would end up with a 4x4 grid where the second row of the second column was
+         empty. By setting the columns property to 1 and the rows property to 3, we tell the grid
+         exactly how to arrange the elements we add. -->
+
+    <UniformGrid Rows="3" Columns="1" Margin="8">
+
+        <!-- One of the restrictions of the uniform grid is that each cell can only have one item.
+             That means we can't have our static text label and textbox in the same cell unless we
+             use a container. So to that end we can use a group box. By using the group box header
+             as our label though, we can simply add the single textbox as the group box content. -->
+
+        <GroupBox Padding="8" Header="Static Text Label">
+            <TextBox Text="Edit Me!"/>
+        </GroupBox>
+
+        <!-- For the item in row two of the uniform grid, add the group box that will hold the
+             three check boxes. -->
+
+        <GroupBox Padding="8" Header="Check Boxes">
+
+            <!-- To hold the three check boxes, add another uniform grid. Again we specify exactly
+                 how we want the cells to be arranged by using the "Rows" and "Columns" properties.
+                 We then add the three check boxes that will automatically land in the first,
+                 second, and third columns of the one and only row. -->
+
+            <UniformGrid Rows="1" Columns="3">
+                <CheckBox VerticalAlignment="Center" Content="One" Click="CheckBoxClick"/>
+                <CheckBox VerticalAlignment="Center" Content="Two" Click="CheckBoxClick"/>
+                <CheckBox VerticalAlignment="Center" Content="Three" Click="CheckBoxClick"/>
+            </UniformGrid>
+        </GroupBox>
+
+        <!-- For the item in row three of the uniform grid, place our "Close" button. -->
+
+        <Button Margin="8" Content="Close" Click="CloseButtonClick"/>
+
+    </UniformGrid>
+</Window>

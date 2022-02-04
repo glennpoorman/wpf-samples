@@ -1,0 +1,79 @@
+﻿<!-- A resource dictionary is a repository for XAML resources. Anything that you can create in the
+     "Resources" section of a window or control can be created here. The difference is that since
+     this dictionary is residing in its own file, this file can be pulled into multiple other XAML
+     files and the styles can be re-used without having to be re-defined. Think of it like an
+     include file full of resources. -->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DependencyProperties">
+    
+    <!-- This particular resource dictionary contains a single style. This style will be applied to
+         all of our custom image button controls placed in the window or control that includes this
+         dictionary. -->
+
+    <Style TargetType="{x:Type local:ImageButton}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                
+                <!-- Define a new control template for the button just like we did in the previous
+                     sample. Note here that our target type is our new custom image button. -->
+
+                <ControlTemplate TargetType="{x:Type local:ImageButton}">
+                    
+                    <!-- In this control template, instead of just a single content presenter, we
+                         are placing a stack panel which will contain an image followed by the
+                         content presenter. 
+                    
+                         Note the binding for the stack panel orientation. We use the template
+                         binding to bind the stack panel's orientation to the "Orientation"
+                         property on the image button which is one of our newly added custom
+                         dependency properties.
+                     
+                         Also note that many of the bound properties that were previously set on
+                         the content presenter have been moved to the stack panel. -->
+
+                    <StackPanel x:Name="stackPanel" Orientation="{TemplateBinding Orientation}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                        <Image Source="{TemplateBinding Source}" Stretch="None" Margin="0,0,4,0"/>
+                        <ContentPresenter Focusable="False" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    
+                    <!-- The triggers section is very much like the section from the previous
+                         sample. Please note, however, that most of the property changes defined
+                         here are now being applied to the stack panel as opposed to the content
+                         presenter.
+                    
+                         Also note the binding for the drop shadow color. It is bound to the new
+                         "ShadowColor" dependency property. Note that we do not use template binding
+                         here though. That is because template binding doesn't work within a setter.
+                         Instead we use regular data binding but set the relative source to be the
+                         "TemplatedParenter" which means the image button. -->
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="stackPanel" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Opacity="10"
+                                        Color="{Binding ShadowColor, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Opacity" TargetName="stackPanel" Value="0.5"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="stackPanel" Value="0.3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

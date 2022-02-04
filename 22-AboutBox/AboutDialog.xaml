@@ -1,0 +1,60 @@
+﻿<!-- Three new properties are used in the window spec for the about dialog.
+
+     The "WindowStartupLocation" property states that this window should be centered within its
+     owning window. In order for this to work though, we need to explicitly set the window owner
+     in the code-behind.
+
+     By default, any new windows popped up in a WPF application also appear in the Windows taskbar.
+     Historically, dialog boxes aren't supposed to appear in the taskbar. Setting "ShowInTaskbar"
+     to false will accomplish this.
+
+     The "DataContext" property is used directly on the window. Here we use a different type of
+     binding. "RelativeSource" sets the binding source by specifying its location relative to the
+     target. In this case, we are setting the data context to "Self" which makes this window's
+     code-behind and data context one in the same. -->
+
+<Window x:Class="AboutBox.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="About AboutBox" Height="200" Width="460" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <!-- Begin definition of a dock panel to hold the window content. -->
+
+    <DockPanel Margin="8">
+
+        <!-- Dock an image for the app to the left side of the panel. -->
+
+        <Image DockPanel.Dock="Left" Source="Resources/WPF.png" Stretch="None"/>
+
+        <!-- Dock the "Ok" button to the bottom of the dialog.
+
+             Note the "IsCancel" property. By setting this, you're telling WPF that this is a
+             "Cancel" button which will automatically close the dialog when the button is pushed
+             and return a result indicating that the dialog was cancelled. It might look odd that
+             we're using this property on the "Ok" button but for an about dialog it doesn't make
+             a difference and will make our life a bit easier.
+
+             Also note that by setting the "IsDefault" property to true, the button receives focus
+             when the dialog comes to life. -->
+
+        <Button DockPanel.Dock="Bottom" Height="23" Width="75" HorizontalAlignment="Right"
+                Content="Ok" IsCancel="True" IsDefault="True" />
+
+        <!-- Create a stack panel to fill the rest of the dialog. Put labels in the stack panel to
+             hold the assembly title, description, version, and copyright string. This dialog
+             essentially mimics the "AboutBox" you can auto-generate in a Windows forms app except
+             that here, we'll use data binding to fill in the labels. -->
+
+        <StackPanel Margin="24,0,0,0">
+            <Label Content="{Binding AssemblyTitle}" />
+            <Label Content="{Binding AssemblyVersion}" />
+            <Label Content="{Binding AssemblyCopyright}" />
+            <Label Content="{Binding AssemblyDescription}" />
+        </StackPanel>
+    </DockPanel>
+</Window>

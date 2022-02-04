@@ -1,0 +1,174 @@
+﻿<Window x:Class="CommandsXAML.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:CommandsXAML"
+        Title="CommandsXAML" Height="310" Width="410" ResizeMode="NoResize">
+
+    <!-- Create a resource section for the window. -->
+
+    <Window.Resources>
+
+        <!-- Create the converter we need to convert between grade level and color. -->
+
+        <local:LevelToColorConverter x:Key="levelToColorConverter"/>
+
+        <!-- Create a styole for a "ListViewItem". -->
+
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="Foreground" Value="{Binding Path=GradeLevel,
+                    Converter={StaticResource levelToColorConverter}}"/>
+        </Style>
+
+        <!-- Create a style for images to decrease the opacity when they are disabled. -->
+
+        <Style TargetType="{x:Type Image}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.3"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Two things need to be done to use commands. First you need to create a static
+             "RoutedCommand" for each or your commands. Then for each command you want to use in
+             the window, you need to add a command binding which will associate a command with an
+             event handler or handlers.
+
+             So first, in the window's list of resources, we create a static routed command object
+             for each command we plan on executing from this window giving each a key name for later
+             reference. -->
+
+        <RoutedCommand x:Key="AddScout"/>
+        <RoutedCommand x:Key="EditScout"/>
+        <RoutedCommand x:Key="DeleteScout"/>
+        <RoutedCommand x:Key="AddSale"/>
+        <RoutedCommand x:Key="SubtractSale"/>
+        <RoutedCommand x:Key="About"/>
+    </Window.Resources>
+
+    <!-- Next we create the command bindings. For each command we plan on using in this window, we
+         create a command binding which binds the command to the necessary event handlers.
+
+         At a minimum, each binding has to set an event handler for the "Executed" event. This is
+         the handler that will be called to actually execute the command.
+
+         In addition, an optional event handler can be set for "CanExecute". This event handler is
+         a query to make sure the application is in a state where the command can be executed. If
+         false is returned, the control executing this command will be disabled. Otherwise it is
+         enabled. If no handler is specified for "CanExecute", true is always assumed and the
+         control will be enabled all the time. -->
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource AddScout}" Executed="AddScoutHandler"/>
+        <CommandBinding Command="{StaticResource EditScout}" Executed="EditScoutHandler"
+                        CanExecute="HasScouts"/>
+        <CommandBinding Command="{StaticResource DeleteScout}" Executed="DeleteScoutHandler"
+                        CanExecute="HasScouts"/>
+        <CommandBinding Command="{StaticResource AddSale}" Executed="AddSaleHandler"
+                        CanExecute="HasScouts"/>
+        <CommandBinding Command="{StaticResource SubtractSale}" Executed="SubtractSaleHandler"
+                        CanExecute="CanSubtract"/>
+        <CommandBinding Command="{StaticResource About}" Executed="AboutHandler"/>
+
+        <!-- Note that our exit command is just a little different from the other commands. First
+             off, you might have noticed that we didn't create a routed command for "Exit" in the
+             section above. Secondly you will notice that the "Command" property below doesn't use
+             the "StaticResource" property. That is because WPF provides a handful of static classes
+             that define several commonly used commands that we can bind to directly. The class
+             "ApplicationCommands" is one of those classes and the command "Close" is a static
+             member of that class. In our "Command" spec below, we can bind to that command
+             directly. -->
+
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseHandler"/>
+    </Window.CommandBindings>
+
+    <!-- Create an instance of the "Scouts" class and set it as the data context on the window. -->
+
+    <Window.DataContext>
+        <local:Scouts/>
+    </Window.DataContext>
+
+    <!-- Begin definition of the main dock panel element. -->
+
+    <DockPanel>
+
+        <!-- Start the menu definition docking the menu to the top of the dock panel and add the
+             menu items.
+
+             Note that for each menu item, the "Clicked" event handler has been removed. Instead we
+             set the "Command" property referencing the routed command we want the menu item to
+             execute by name.
+
+             Also note that the "IsEnabled" property is no longer used. Instead we rely on the
+             return from the "CanExecute" event handler on the command to enable/disable the menu
+             item.
+
+             Note that like the command binding, the menu item for the "Exit" command references
+             the static "Close" command defined in the "ApplicationCommands" class directly. -->
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Command="ApplicationCommands.Close"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Add Scout" Command="{StaticResource AddScout}"/>
+                <MenuItem Header="_Edit Scout" Command="{StaticResource EditScout}"/>
+                <MenuItem Header="_Delete Scout" Command="{StaticResource DeleteScout}"/>
+                <Separator/>
+                <MenuItem Header="Add _Sale" Command="{StaticResource AddSale}"/>
+                <MenuItem Header="Sub_tract Sale" Command="{StaticResource SubtractSale}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." Command="{StaticResource About}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Place a toolbar for our commands right under the menu. -->
+
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button ToolTip="Add Scout" Command="{StaticResource AddScout}">
+                    <Image Source="Resources/newButton.gif"/>
+                </Button>
+                <Button ToolTip="Edit Scout" Command="{StaticResource EditScout}">
+                    <Image Source="Resources/propertiesButton.gif"/>
+                </Button>
+                <Button ToolTip="Delete Scout" Command="{StaticResource DeleteScout}">
+                    <Image Source="Resources/deleteButton.gif"/>
+                </Button>
+                <Separator/>
+                <Button ToolTip="Add Sale" Command="{StaticResource AddSale}">
+                    <Image Source="Resources/saleAddButton.gif"/>
+                </Button>
+                <Button ToolTip="Subtract Sale" Command="{StaticResource SubtractSale}">
+                    <Image Source="Resources/saleSubButton.gif"/>
+                </Button>
+                <Separator/>
+                <Button ToolTip="About" Command="{StaticResource About}">
+                    <Image Source="Resources/helpButton.gif"/>
+                </Button>
+            </ToolBar>    
+        </ToolBarTray>
+
+        <!-- Place a text block containing a brief description of the app. -->
+
+        <TextBlock Text="Cookie Sales" FontWeight="Bold" FontStyle="Italic" DockPanel.Dock="Top"
+                   Margin="6,6,0,0"/>
+
+        <!-- Place a list view to hold the list of participating scouts.
+
+             Note that we've added a "MouseDoubleClick" method. We'll use the method to edit a scout
+             when double clicked in the list. -->
+
+        <ListView Margin="6" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}"
+                  MouseDoubleClick="ListDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Sold}" Header="Boxes Sold" Width="80"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding GradeLevel}" Header="Level" Width="80"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>

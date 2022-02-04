@@ -1,0 +1,120 @@
+﻿<Window x:Class="DependencyProperties.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:DependencyProperties"
+        Title="DependencyProperties" Width="660" Height="200">
+
+    <!-- The window resource section pulls in the image button resource dictionary.
+    
+         This requires a little explanation. The resource section of any object be it a window,
+         user control, control, etc is a resource dictionary. Consider a resource section with
+         two styles in it. You could just as easily write:
+    
+             <Window.Resources>
+                 <ResourceDictionary>
+                     <Style ... />
+                     <Style ... />
+                 </ResourceDictionary>
+             </Window.Resources>
+    
+         WPF allows us to leave the "ResourceDictionary" part off though leave just the styles
+         as you've seen in previous samples. In our case though, we need to tell our resource
+         dictionary where to pull its resources from so we need to specify the external XAML
+         file via the "Source" property.
+    
+             <Window.Resources>
+                 <ResourceDictionary Source="ImageButton.xaml"/>
+             </Window.Resources>
+    
+         For our purposes ... that's it. But it gets complicated if you want to specify additional
+         styles in this file. The window resource section can only contain one resource dictionary.
+         So let's say you want to add a style after pulling in the image button. Your first thought
+         would be to simply add it after the dictionary.
+    
+             <Window.Resources>
+                 <ResourceDictionary Source="ImageButton.xaml"/>
+                 <Style TargetType="{x:Type TextBox}">
+                     <Setter Property="FontWeight" Value="Bold"/>
+                 </Style>
+             </Window.Resources>
+    
+         The problem is, a window is only allowed to contain one resource dictionary so that code
+         would result in an error "The property 'Resources' can only be set once".
+    
+         To pull in an external resource dictionary and then add additional resources, everything
+         needs to be longhand and the "MergedDictionaries" property needs to be used.
+
+             <Window.Resources>
+                 <ResourceDictionary>
+                     <ResourceDictionary.MergedDictionaries>
+                         <ResourceDictionary Source="ImageButton.xaml"/>
+                     </ResourceDictionary.MergedDictionaries>
+                     <Style TargetType="{x:Type TextBox}">
+                         <Setter Property="FontWeight" Value="Bold"/>
+                     </Style>
+                 </ResourceDictionary>
+            </Window.Resources>
+
+        Note that the "MergedDictionaries" section can contain references to any number of external
+        resource dictionaries. -->
+
+    <Window.Resources>
+        <ResourceDictionary Source="ImageButton.xaml"/>
+    </Window.Resources>
+
+    <!-- Create the main stack panel to hold the two rows of buttons. -->
+
+    <StackPanel Margin="8">
+        
+        <!-- Create the stack panel to hold the top row of buttons. -->
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            
+            <!-- Note that each button is now one of our new custom buttons. Unlike the previous
+                 sample, we're specifically setting the width and height. Also note that we're
+                 now specifying the image via the button's new "Source" property and we are setting
+                 the drop shadow color using the new "ShadowColor" property. -->
+
+            <local:ImageButton Click="ButtonClick" Width="80" Height="80"
+                               Source="Resources/add-icon.png" ShadowColor="#7A8291"/>
+            <local:ImageButton Click="ButtonClick" Width="80" Height="80"
+                               Source="Resources/subtract-icon.png" ShadowColor="#84A7B9"/>
+            <local:ImageButton Click="ButtonClick" Width="80" Height="80"
+                               Source="Resources/previous-icon.png" ShadowColor="#E54CA6"/>
+            <local:ImageButton Click="ButtonClick" Width="80" Height="80"
+                               Source="Resources/next-icon.png" ShadowColor="#13A38D"/>
+            <local:ImageButton Click="ButtonClick" Width="80" Height="80"
+                               Source="Resources/upload-icon.png" ShadowColor="#ED686E"/>
+            <local:ImageButton Click="ButtonClick" Width="80" Height="80"
+                               Source="Resources/download-icon.png" ShadowColor="#00C9CA"/>
+            <local:ImageButton Click="CloseButtonClick" Width="80" Height="80"
+                               Source="Resources/turn-off-icon.png" ShadowColor="#5FCECA"/>
+        </StackPanel>
+
+        <!-- Create the stack panel to hold the bottom row of buttons. -->
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <!-- The next button specified a text string as content but does not specify an image.
+                 The result is the string displaying by itself. -->
+
+            <local:ImageButton Content="Push Me!" Width="120" Height="80" FontSize="16"
+                               Click="ButtonClick"/>
+            
+            <!-- The next button contains both an image and string content. The orientation (one of
+                 our new dependency properties) is set such that the image displays with the string
+                 underneath it. -->
+
+            <local:ImageButton Content="Help!"  Width="120" Height="80" FontSize="16"
+                               Click="ButtonClick" ShadowColor="#3C94E7"
+                               Source="Resources/small-help-icon.png" Orientation="Vertical"/>
+            
+            <!-- The last button contains both an image and string content. The image displays first
+                 with the string displaying just to the right which is the default orientation. -->
+
+            <local:ImageButton Content="Close Me!" Width="120" Height="80" FontSize="16"
+                               Source="Resources/small-turn-off-icon.png" ShadowColor="#5FCECA"
+                               Click="CloseButtonClick"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

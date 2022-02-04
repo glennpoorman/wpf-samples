@@ -1,0 +1,121 @@
+﻿<Window x:Class="ICommands.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ICommands"
+        Title="ICommands" Height="310" Width="410" ResizeMode="NoResize">
+
+    <!-- NOTE: We are no longer setting a data context here in the XAML. Instead we'll be setting
+               the window itself as its own data context in the code-behind.
+
+               You might recall that in the about dialog, we do the same thing using the
+               "RelativeSource Self" syntax here in the XAML. I tried that for this sample and it
+               didn't appear to work. Right now I'm not sure why but suspect some kind of timing
+               issue. -->
+
+    <!-- Create a resource section for the window. -->
+
+    <Window.Resources>
+
+        <!-- Create the converter we need to convert between grade level and color. -->
+
+        <local:LevelToColorConverter x:Key="levelToColorConverter"/>
+
+        <!-- Create a styole for a "ListViewItem". -->
+
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="Foreground" Value="{Binding Path=GradeLevel,
+                    Converter={StaticResource levelToColorConverter}}"/>
+        </Style>
+
+        <!-- Create a style for images to decrease the opacity when they are disabled. -->
+
+        <Style TargetType="{x:Type Image}">
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.3"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <!-- Begin definition of the main dock panel element. -->
+
+    <DockPanel>
+
+        <!-- Start the menu definition docking the menu to the top of the dock panel and add the
+             menu items.
+
+             Note the change in the binding. We are still using the "Command" property on each menu
+             item but instead of binding to a static resource, we're now binding to properties on
+             the data context (this window). Those properties are instances of our "RelayCommand"
+             class but exposed as "ICommand" (an interface that our class implements) which means
+             the WPF command architecture can interact with our objects. -->
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Command="{Binding Exit}"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Add Scout" Command="{Binding AddScout}"/>
+                <MenuItem Header="_Edit Scout" Command="{Binding EditScout}"/>
+                <MenuItem Header="_Delete Scout" Command="{Binding DeleteScout}"/>
+                <Separator/>
+                <MenuItem Header="Add _Sale" Command="{Binding AddSale}"/>
+                <MenuItem Header="Sub_tract Sale" Command="{Binding SubtractSale}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." Command="{Binding About}"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Place a toolbar for our commands right under the menu.
+
+             Note the same change in the binding as with the menu items. -->
+
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button ToolTip="Add Scout" Command="{Binding AddScout}">
+                    <Image Source="Resources/newButton.gif"/>
+                </Button>
+                <Button ToolTip="Edit Scout" Command="{Binding EditScout}">
+                    <Image Source="Resources/propertiesButton.gif"/>
+                </Button>
+                <Button ToolTip="Delete Scout" Command="{Binding DeleteScout}">
+                    <Image Source="Resources/deleteButton.gif"/>
+                </Button>
+                <Separator/>
+                <Button ToolTip="Add Sale" Command="{Binding AddSale}">
+                    <Image Source="Resources/saleAddButton.gif"/>
+                </Button>
+                <Button ToolTip="Subtract Sale" Command="{Binding SubtractSale}">
+                    <Image Source="Resources/saleSubButton.gif"/>
+                </Button>
+                <Separator/>
+                <Button ToolTip="About" Command="{Binding About}">
+                    <Image Source="Resources/helpButton.gif"/>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <!-- Place a text block containing a brief description of the app. -->
+
+        <TextBlock Text="Cookie Sales" FontWeight="Bold" FontStyle="Italic" DockPanel.Dock="Top"
+                   Margin="6,6,0,0"/>
+
+        <!-- Place a list view to hold the list of participating scouts.
+
+             Note that we've added a "MouseDoubleClick" method. We'll use the method to edit a scout
+             when double clicked in the list. -->
+
+        <ListView Margin="6" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding Scouts}"
+                  MouseDoubleClick="ListDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Sold}" Header="Boxes Sold" Width="80"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding GradeLevel}" Header="Level" Width="80"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>

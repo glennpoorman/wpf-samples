@@ -1,0 +1,115 @@
+﻿<Window x:Class="GridMultiCell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GridMultiCell" Width="330" Height="220" MinWidth="330" MinHeight="220">
+
+    <!-- Begin the grid definition. Like the previous sample we specify a small margin to be
+         applied to all sides. Here we're going to setup row and column specifications though
+         making this a multi cell grid. -->
+
+    <Grid Margin="8">
+
+        <!-- Specify grid columns and rows. By default, grid columns and rows are equally sized
+             taking up the entirety of the grid. Also note that the absence of row or column specs
+             implies a single row or column. That means that in the previous single cell grid
+             sample, we could have included the following:
+
+                 <Grid.RowDefinitions>
+                     <RowDefinition/>
+                 </Grid.RowDefinitions>
+                 <Grid.ColumnDefinitions>
+                     <ColumnDefinition/>
+                 </Grid.ColumnDefinitions>
+
+             That is the spec for a single cell grid. Since that is the default though, it would
+             have been redundant.
+
+             Also note that any column or row specs can be explicitly sized using the "Height"
+             property (for rows) or "Width" property (for columns). Here we'll keep it simple
+             specifying three rows and three columns making this a 3x3 grid of equal sized
+             cells. -->
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Place a static text block.
+
+             We specify which grid cell the text block will be placed in using the "Grid.Row" and
+             "Grid.Column" properties (note that these are zero based). These properties actually
+             default to "0" so in this case we could have left them off entirely and the result
+             would have been the same.
+
+             Also note the "Grid.ColumnSpan" property is set to 3. This means that this element
+             will span three grid columns. -->
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Static Text"/>
+
+        <!-- Place a textbox. Again we are placing this textbox into the first row and first
+             column and then setting the "Grid.ColumnSpan" such that the text box will span
+             three columns.
+
+             The textbox and the label are still sharing a cell here so we continue to use the
+             "Margin" property to push the textbox down under the label. We also put a small
+             margin on the right and left side to give it a little padding. Note that margins
+             are all relative to the grid cell and not the entire grid. -->
+
+        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,20,0,0" Text="Edit Me!"/>
+
+        <!-- Begin definition of the group box we'll use to hold our three check boxes. The group
+             box is explicitly placed into the second row and the first column of the grid. The
+             column span is set such that the group box will span all three columns. -->
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Padding="8" Header="Check Boxes">
+
+            <!-- The group box content will be another grid. -->
+
+            <Grid>
+
+                <!-- This grid will contain one row and three columns, one for each check box.
+                     Again we don't need any row specs here as a grid defaults to one row. We'll
+                     specify that the grid be divided into three equal sized columns. -->
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Now place the three check boxes. Each of the check boxes is placed into the
+                     first (and only) row of the grid but each will be placed into its own column.
+
+                     Check boxes don't really shrink and grow so we set the vertical alignment to
+                     center so that if and when the grid cell shrinks and grows (on window resize),
+                     the check boxes will stay centered in the cell vertically. -->
+
+                <CheckBox Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="One"
+                          Click="CheckBoxClick"/>
+                <CheckBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Content="Two"
+                          Click="CheckBoxClick"/>
+                <CheckBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Content="Three"
+                          Click="CheckBoxClick"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Place the "Close" button into the last grid row "2" and set it to span two of the
+             three columns. We set a small margin to give the button some extra padding at the top
+             and bottom. -->
+
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,6" Content="Close"
+                Click="CloseButtonClick"/>
+
+        <!-- Place a "Help" button into the last grid row "2" and last grid column "2". Set a small
+             margin on the right to put some space between it and the close button and also set a
+             small margin on the top and bottom. -->
+
+        <Button Grid.Row="2" Grid.Column="2" Content="Help" Margin="6,6,0,6" Click="HelpButtonClick"/>
+    </Grid>
+</Window>

@@ -1,0 +1,119 @@
+﻿<Window x:Class="StaticResource.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:StaticResource"
+        Title="StaticResource" Height="310" Width="325" ResizeMode="NoResize">
+
+    <!-- Create a resources section for the window.
+
+         Here we define the same data template we did in the previous sample but instead of defining
+         it right in the list box spec, we define it as a static resource and give it a name using
+         the "x:Key" property. That key can then be used to reference the resource any number of
+         times.
+
+         For this particular sample, we really haven't saved anything as we only use the date
+         template in the single list box. Imagine if we had two or three listboxes though and we
+         wanted them formatted the same. We could then define the data template just once and
+         reference it by key in each place we want to use it.
+
+         You can even define static resources in an external XAML file (called a resource
+         dictionary) and then include that file here. That way you can share resources across
+         multiple windows. -->
+
+    <Window.Resources>
+        <DataTemplate x:Key="listTemplate">
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} - {1}">
+                        <Binding Path="Name"/>
+                        <Binding Path="Sold"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
+    </Window.Resources>
+
+    <!-- Create an instance of the "Scouts" class and set it as the data context on the window. -->
+
+    <Window.DataContext>
+        <local:Scouts/>
+    </Window.DataContext>
+
+    <!-- Begin definition of the main dock panel element. -->
+
+    <DockPanel>
+
+        <!-- Start the menu definition docking the menu to the top of the dock panel and add the
+             menu items. -->
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Click="ExitClick"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Add Scout" Click="AddScoutClick"/>
+                <MenuItem Header="_Delete Scout" Click="DeleteScoutClick" IsEnabled="{Binding Count}"/>
+                <Separator/>
+                <MenuItem Header="Add _Sale" Click="AddSaleClick" IsEnabled="{Binding Count}"/>
+                <MenuItem Header="Sub_tract Sale" Click="SubtractSaleClick">
+                    <MenuItem.IsEnabled>
+                        <PriorityBinding>
+                            <Binding Path="Sold"/>
+                            <Binding Path="Count"/>
+                        </PriorityBinding>
+                    </MenuItem.IsEnabled>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." Click="AboutClick"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Begin definition of the main stack panel container. -->
+
+        <StackPanel DockPanel.Dock="Top" Margin="6">
+
+            <!-- Place a text block containing a brief description of the app. -->
+
+            <TextBlock Text="Cookie Sales" FontWeight="Bold" FontStyle="Italic"/>
+            <Separator Margin="0,0,0,10"/>
+
+            <!-- Place a stack panel to show the scout name. -->
+
+            <StackPanel Margin="8,0">
+                <TextBlock Text="Scout Name"/>
+                <TextBox Text="{Binding Name}" IsEnabled="{Binding Count}"/>
+            </StackPanel>
+
+            <!-- Place another stack panel to show how many cookie boxes the scout has sold. -->
+
+            <StackPanel Margin="8">
+                <TextBlock Text="Boxes Sold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="60" HorizontalAlignment="Left" Text="{Binding Sold}"
+                             IsEnabled="{Binding Count}"/>
+                    <Button Width="20" Content="+" Margin="6,0,0,0" Click="AddSaleClick"
+                            IsEnabled="{Binding Count}"/>
+                    <Button Width="20" Content="-" Margin="6,0,0,0" Click="SubtractSaleClick">
+                        <Button.IsEnabled>
+                            <PriorityBinding>
+                                <Binding Path="Sold"/>
+                                <Binding Path="Count"/>
+                            </PriorityBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Place a listbox to hold the list of participating scouts.
+
+             Unlike the previous sample where we defined a data template right in the listbox spec,
+             here we've already defined the data template as a static resource so we can simply
+             reference that definition using the property "ItemTemplate" and the key name
+             "listTemplate". -->
+        
+        <ListBox Margin="8" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}"
+                 ItemTemplate="{StaticResource listTemplate}"/>
+    </DockPanel>
+</Window>

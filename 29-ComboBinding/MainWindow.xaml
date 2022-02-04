@@ -1,0 +1,165 @@
+﻿<Window x:Class="ComboBinding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ComboBinding"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="ComboBinding" Height="510" Width="325" ResizeMode="NoResize">
+
+    <!-- Create a resource section for the window. -->
+
+    <Window.Resources>
+
+        <!-- The "ObjectDataProvider" is an object that can be used to wrap and create an object to
+             be used as a binding source. Later on we're going to want to bind the "ItemsSource"
+             property of a combo box to the list of possible values from an enum. Now, we could go
+             ahead and define our own collection of strings, expose it as an observable collection
+             from our data context, and bind to that. That's fairly manual and and requires work to
+             keep things in sync if we ever change the enum.
+        
+             Using the "ObjectDataProvider" we can create our binding source right here in the XAML.
+             During binding, the object data provider will call the method we tell it to call, pass
+             in the parameters we tell it to pass in, and use the result of that method call for
+             the binding.
+        
+             Let's dissect the object data provider below:
+        
+             * First we name the data provider like we would any other resource.
+        
+                   x:Key="gradeLevelValues"
+        
+             * Next we tell tell the provider what type of object we're communicating with. In this
+               case, a standard enum.
+        
+                   ObjectType="{x:Type sys:Enum}"
+        
+             * Next we tell the provider what method to call. Since we're not giving the provider
+               an object instance, this method needs to be static.
+        
+                   MethodName="GetValues"
+        
+             * Lastly we specify parameters for the method. This particular method takes a "Type"
+               which is the type of enum we're trying to get values for. In this case a "GradeLevel".
+        
+                   <ObjectDataProvider.MethodParameters>
+                       <x:Type TypeName="local:GradeLevel"/>
+                   </ObjectDataProvider>
+        
+            Essentially what we've just done is to specify that when we need a collection of items
+            for the combo box, we make the following call:
+        
+                Array values = Enum.GetValues(typeof(GradeLevel)); -->
+
+        <ObjectDataProvider x:Key="gradeLevelValues" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:GradeLevel"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <!-- Create the converter we need to convert between grade level and color. -->
+
+        <local:LevelToColorConverter x:Key="levelToColorConverter"/>
+
+        <!-- Create the data template for displaying a scout in the listbox. -->
+
+        <DataTemplate DataType="{x:Type local:Scout}">
+            <TextBlock Foreground="{Binding Path=GradeLevel, Converter={StaticResource levelToColorConverter}}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} - {1}">
+                        <Binding Path="Name"/>
+                        <Binding Path="Sold"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
+    </Window.Resources>
+
+    <!-- Create an instance of the "Scouts" class and set it as the data context on the window. -->
+
+    <Window.DataContext>
+        <local:Scouts/>
+    </Window.DataContext>
+
+    <!-- Begin definition of the main dock panel element. -->
+
+    <DockPanel>
+
+        <!-- Start the menu definition docking the menu to the top of the dock panel and add the
+             menu items. -->
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Click="ExitClick"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Add Scout" Click="AddScoutClick"/>
+                <MenuItem Header="_Delete Scout" Click="DeleteScoutClick" IsEnabled="{Binding Count}"/>
+                <Separator/>
+                <MenuItem Header="Add _Sale" Click="AddSaleClick" IsEnabled="{Binding Count}"/>
+                <MenuItem Header="Sub_tract Sale" Click="SubtractSaleClick">
+                    <MenuItem.IsEnabled>
+                        <PriorityBinding>
+                            <Binding Path="Sold"/>
+                            <Binding Path="Count"/>
+                        </PriorityBinding>
+                    </MenuItem.IsEnabled>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." Click="AboutClick"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Begin definition of the main stack panel container. -->
+
+        <StackPanel DockPanel.Dock="Top" Margin="6">
+
+            <!-- Place a text block containing a brief description of the app. -->
+
+            <TextBlock Text="Cookie Sales" FontWeight="Bold" FontStyle="Italic"/>
+            <Separator Margin="0,0,0,10"/>
+
+            <!-- Place a stack panel to show the scout name. -->
+
+            <StackPanel Margin="8,0">
+                <TextBlock Text="Scout Name"/>
+                <TextBox Text="{Binding Name}" IsEnabled="{Binding Count}"/>
+            </StackPanel>
+
+            <!-- Place another stack panel to show how many cookie boxes the scout has sold. -->
+
+            <StackPanel Margin="8">
+                <TextBlock Text="Boxes Sold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="60" HorizontalAlignment="Left" Text="{Binding Sold}"
+                             IsEnabled="{Binding Count}"/>
+                    <Button Width="20" Content="+" Margin="6,0,0,0" Click="AddSaleClick"
+                            IsEnabled="{Binding Count}"/>
+                    <Button Width="20" Content="-" Margin="6,0,0,0" Click="SubtractSaleClick">
+                        <Button.IsEnabled>
+                            <PriorityBinding>
+                                <Binding Path="Sold"/>
+                                <Binding Path="Count"/>
+                            </PriorityBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Place a group box for the scout grade levels. In this sample we use a combo box
+                 instead of radio buttons.
+
+                 The bindings for "SelectedItem" and "IsEnabled" are straightforward bindings. The
+                 binding for "ItemsSource" uses the obect data provider we defined as a static
+                 resource and will fill the combo box using the values from the "GradeLeve" enum. -->
+
+            <GroupBox Header="Grade Level" Margin="8" Padding="4">
+                <ComboBox ItemsSource="{Binding Source={StaticResource gradeLevelValues}}"
+                          SelectedItem="{Binding GradeLevel}" IsEnabled="{Binding Count}"/>
+            </GroupBox>
+        </StackPanel>
+
+        <!-- Place a listbox to hold the list of participating scouts. -->
+        
+        <ListBox Margin="8" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}"/>
+    </DockPanel>
+</Window>

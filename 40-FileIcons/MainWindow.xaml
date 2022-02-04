@@ -1,0 +1,11 @@
+﻿<Window x:Class="FileIcons.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:FileIcons.Views"
+        Title="FileIcons" Height="500" Width="600" MinHeight="300" MinWidth="400">
+
+    <!-- The window content is a single instance of the folder tree view. -->
+    
+    <views:FolderTreeView x:Name="folderTreeView"/>
+
+</Window>

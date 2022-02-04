@@ -1,0 +1,89 @@
+﻿<!-- Note the use of "FocusManager.FocusedElement" that we use to set the focus to the "Name" text
+     box when the dialog first comes to life. This requires that the text box be named. -->
+
+<Window x:Class="Dialogs.EditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Dialogs"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="Edit Scout" Height="240" Width="325" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        FocusManager.FocusedElement="{Binding ElementName=nameBox}">
+
+    <!-- Create a resource section for the window. -->
+
+    <Window.Resources>
+
+        <!-- Create the object data provider to bind to the combo box items source. -->
+
+        <ObjectDataProvider x:Key="gradeLevelValues" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:GradeLevel"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
+    <!-- One of the issues we run into when we start "editing" data is that WPF doesn't provide a
+         way of rolling back changes made to a data context should a user decide to cancel an edit
+         operation. So here we'll set a static instance of "Scout" as the window data context. This
+         static scout instance will act as a proxy initializing itself by copying fields from the
+         originally selected scout, allowing those fields to be edited via data binding, and then
+         only copy the fields back to the original scout if the user selects "Ok" to close the
+         dialog. If "Cancel" is selected, we'll discard the changes in the scout proxy leaving the
+         original scout as it was. -->
+
+    <Window.DataContext>
+        <local:Scout/>
+    </Window.DataContext>
+
+    <!-- Begin definition of the main stack panel for the window. -->
+
+    <StackPanel>
+
+        <!-- Place a stack panel to show the scout name.
+        
+             Note the binding used on the text. We explicitly use the "Path" property to specify the
+             property that we're binding to and we also use the "UpdateSourceTrigger" property to
+             specify how that binding should take place. By default, binding in a text box takes
+             place when the text box loses focus (i.e. UpdateSourceTrigger=LostFocus).
+
+             We want to update our "Ok" button (later in this file) based on the text in this box
+             though and we want that to happen right away as the user types so we use
+             UpdateSourceTrigger=PropertyChanged which causes the binding to happen whenever there
+             is a change of any kind in the text box. -->
+
+        <StackPanel Margin="8,8,0,0">
+            <TextBlock Text="Scout Name"/>
+            <TextBox Name="nameBox" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <!-- Place another stack panel to show how many cookie boxes the scout has sold.
+
+             Again we've changed the binding on the text so that the binding will happen immediately
+             via UpdateSourceTrigger=PropertyChanged. -->
+
+        <StackPanel Margin="8">
+            <TextBlock Text="Boxes Sold"/>
+            <TextBox Text="{Binding Path=Sold, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+
+        <!-- Place a group box for the scout grade levels. -->
+
+        <GroupBox Header="Grade Level" Margin="8" Padding="4">
+            <ComboBox ItemsSource="{Binding Source={StaticResource gradeLevelValues}}"
+                          SelectedItem="{Binding GradeLevel}"/>
+        </GroupBox>
+        
+        <!-- Place one more stack panel to hold the side by side "Ok" and "Cancel" buttons.
+
+             Note that the "IsEnabled" property on the "Ok" button is bound to the new "IsValid"
+             property on the scout. This ensures that the edits cannot be saved if the scout name
+             is empty. -->
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,0">
+            <Button Margin="0,0,4,0" Width="108" IsDefault="True" IsEnabled="{Binding IsValid}"
+                    Content="Ok" Click="OkClick"/>
+            <Button Margin="4,0,0,0" Width="108" IsCancel="True" Content="Cancel"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

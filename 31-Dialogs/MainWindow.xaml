@@ -1,0 +1,78 @@
+﻿<Window x:Class="Dialogs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Dialogs"
+        Title="Dialogs" Height="310" Width="410" ResizeMode="NoResize">
+
+    <!-- Create a resource section for the window. -->
+
+    <Window.Resources>
+
+        <!-- Create the converter we need to convert between grade level and color. -->
+
+        <local:LevelToColorConverter x:Key="levelToColorConverter"/>
+
+        <!-- Create a styole for a "ListViewItem". -->
+
+        <Style TargetType="{x:Type ListViewItem}">
+            <Setter Property="Foreground" Value="{Binding Path=GradeLevel,
+                    Converter={StaticResource levelToColorConverter}}"/>
+        </Style>        
+    </Window.Resources>
+
+    <!-- Create an instance of the "Scouts" class and set it as the data context on the window. -->
+
+    <Window.DataContext>
+        <local:Scouts/>
+    </Window.DataContext>
+
+    <!-- Begin definition of the main dock panel element. -->
+
+    <DockPanel>
+
+        <!-- Start the menu definition docking the menu to the top of the dock panel and add the
+             menu items. -->
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Click="ExitClick"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Add Scout" Click="AddScoutClick"/>
+                <MenuItem Header="_Edit Scout" Click="EditScoutClick" IsEnabled="{Binding Count}"/>
+                <MenuItem Header="_Delete Scout" Click="DeleteScoutClick" IsEnabled="{Binding Count}"/>
+                <Separator/>
+                <MenuItem Header="Add _Sale" Click="AddSaleClick" IsEnabled="{Binding Count}"/>
+                <MenuItem Header="Sub_tract Sale" Click="SubtractSaleClick">
+                    <MenuItem.IsEnabled>
+                        <PriorityBinding>
+                            <Binding Path="Sold"/>
+                            <Binding Path="Count"/>
+                        </PriorityBinding>
+                    </MenuItem.IsEnabled>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." Click="AboutClick"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Place a text block containing a brief description of the app. -->
+
+        <TextBlock Text="Cookie Sales" FontWeight="Bold" FontStyle="Italic" DockPanel.Dock="Top"
+                   Margin="6,6,0,0"/>
+
+        <!-- Place a list view to hold the list of participating scouts. -->
+
+        <ListView Margin="6" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}"
+                  MouseDoubleClick="ListDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="200"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Sold}" Header="Boxes Sold" Width="80"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding GradeLevel}" Header="Level" Width="80"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>

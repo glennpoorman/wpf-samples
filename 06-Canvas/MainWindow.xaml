@@ -1,0 +1,103 @@
+﻿<!-- Note the addition of the "MinWidth" and "MinHeight" properties to the window element here.
+     By setting these values, we restrict how small the user can make this window. -->
+
+<Window x:Class="Canvas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Canvas" Width="330" Height="200" MinWidth="330" MinHeight="200">
+
+    <!-- Begin a canvas definition. The canvas is a container that can contain any number of
+         additional elements including nested container elements.
+
+         For positioning an individual element within a canvas, the following four properties
+         are available:
+
+             Canvas.Left
+             Canvas.Top
+             Canvas.Right
+             Canvas.Bottom
+
+         These elements are used strictly for positioning, never for sizing. As an example, you
+         can horizontally position an item relative to the left side by setting "Canvas.Left" or
+         relative to the right side by setting "Canvas.Right". There is no reason to ever set both
+         though. At first glance, you might think that setting a value for both "Canvas.Left" and
+         "Canvas.Right" would imply a width but that's not how WPF works. This also holds true for
+         the "Canvas.Top" and "Canvas.Bottom" properties. This actually makes the canvas container
+         a bit clumsy but it makes a good starting point.
+
+         For sizing, only the "Width" and "Height" properties can be used to size an element in a
+         canvas. In the absence of these properties, the element will be automatically sized to
+         fit its content.
+
+         Alignment properties are ignored in a canvas. Margin properties can still be used but do
+         not really make a lot of sense. -->
+
+    <Canvas>
+
+        <!-- Place a static text block. WPF has two types of static text elements you can use.
+             One is the "Label" and the other is the "TextBlock". The label element is a first
+             class control, inherits all the extras that come with a control, and can contain
+             any type of element as its content. The text block derives from "FrameworkElement",
+             can only contain text, and is much lighter weight.
+
+             Note the use of "Canvas.Top" and "Canvas.Left" properties used for absolute
+             positioning of the label within the containing canvas. The width of the block will
+             be just enough to fit the content. -->
+
+        <TextBlock Canvas.Top="5" Canvas.Left="5" Text="Static Text"/>
+
+        <!-- Place a textbox. This is an editable text control. Note that the default text is
+             set via the "Text" property. Also note that we again use the "Canvas.Top" and
+             "Canvas.Left" properties to position the textbox within the containing canvas.
+             We also explicitly set a width value. -->
+
+        <TextBox Canvas.Top="28" Canvas.Left="6" Width="300" Text="Edit me!"/>
+ 
+        <!-- Begin definition of a group box.
+
+             The WPF group box is essentially the same as a Win32 group box. The header text can
+             be optionally set using the "Header" property. Like a window or a buttton, there is
+             a "Content" property that can contain one element. A group box with only one element
+             isn't very useful though. Generally you'll want several items in a group box and,
+             again, you'll need a container to achieve this. To that end, we'll place another
+             canvas element to hold some added elements. This also demonstrates how containers
+             can be nested.
+
+             Also note the explicit setting of the width and height. Unlike most WPF elements, the
+             group box does not appear to size itself so as to fit all of its content. So leaving
+             these properties off would result in a group box sized only large enough to show the
+             header text. -->
+
+        <GroupBox Canvas.Top="50" Canvas.Left="6" Width="300" Height="56" Header="Check Boxes">
+
+            <!-- Begin definition of another canvas. -->
+
+            <Canvas>
+
+                <!-- Place three check box elements. The content for each of the check boxes is a
+                     simple text string. Additionally we assign a new event handler to be called
+                     when mouse clicks occur on the checkbox.
+
+                     Note that each check box is positioned via the "Canvas.Top" and "Canvas.Left"
+                     properties. This positioning is relative to the canvas containing the check
+                     boxes as opposed to the top level canvas. -->
+
+                <CheckBox Canvas.Top="8" Canvas.Left="8" Content="One" Click="CheckBoxClick"/>
+                <CheckBox Canvas.Top="8" Canvas.Left="78" Content="Two" Click="CheckBoxClick"/>
+                <CheckBox Canvas.Top="8" Canvas.Left="148" Content="Three" Click="CheckBoxClick"/>
+            </Canvas>
+        </GroupBox>
+
+        <!-- Place a "Close" button to shut down the application. While the horizontal positioning
+             is done via "Canvas.Left" like all of the other controls in the canvas, the vertical
+             positioning is done using "Canvas.Bottom". This will position the button relative to
+             the bottom of the canvas and you'll note that if the window is resized, the button
+             will move in order to keep that distance to the bottom of the canvas.
+
+             Note that we are no longer defining that inner canvas within the group box so we are
+             again positioning relative to the very top level canvas. -->
+
+        <Button Canvas.Bottom="15" Canvas.Left="100" Width="120" Height="25" Content="Close"
+                Click="CloseButtonClick"/>
+    </Canvas>
+</Window>

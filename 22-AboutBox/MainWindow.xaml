@@ -1,0 +1,29 @@
+﻿<Window x:Class="AboutBox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AboutBox"
+        Title="AboutBox" Height="200" Width="400" ResizeMode="NoResize">
+
+    <!-- Begin definition of the main stack panel container. -->
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        
+        <!-- Place a button that, when clicked, will bring up the "About" dialog box. -->
+
+        <Button Height="90" Width="160" Margin="0,0,8,0" Click="AboutButtonClick">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Resources/info-icon-64x64.png" Stretch="None"/>
+                <TextBlock VerticalAlignment="Center" Margin="8" Text="About"/>
+            </StackPanel>
+        </Button>
+
+        <!-- Lastly, place our "Close" button. -->
+
+        <Button Height="90" Width="160" Margin="8,0,0,0" Click="CloseButtonClick">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Resources/close-icon-64x64.png" Stretch="None"/>
+                <TextBlock VerticalAlignment="Center" Margin="8" Text="Close"/>
+            </StackPanel>
+        </Button>
+    </StackPanel>
+</Window>

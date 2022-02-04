@@ -1,0 +1,128 @@
+﻿<Window x:Class="Themes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Themes"
+        Title="Themes" Width="600" Height="600">
+
+    <!-- Create a resources section for the window.
+
+         Here we'll create a style to do some custom overrides to the properties on the
+         "ImageButton". The style is pulled in via the theme but things like width and height aren't
+         things you want to set in the default style as they are the most likely to change with each
+         use. Using themes essentially makes using our custom image button exactly like using a
+         control that is part of WPF. -->
+
+    <Window.Resources>
+        <Style TargetType="{x:Type local:ImageButton}">
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
+    
+    <!-- Create a static instance of the "CheckBoxManager" class and set it as the data context
+         on this window. -->
+
+    <Window.DataContext>
+        <local:CheckBoxManager/>
+    </Window.DataContext>
+
+    <!-- Create a three row grid for checkbox examples, image button examples, and image buttons
+         with content. -->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Create a group box to hold all of the check box samples. Use one of the new
+             "ImageCheckBox" controls for each checkbox. For the first three, set the image to be
+             used when the check box is checked and when it is unchecked. The fourth checkbox is a
+             three state so we also need to set the image to be used when the checkbox is in an
+             indeterminate state. -->
+
+        <GroupBox Grid.Row="0" Header="Check Boxes" Margin="8" Padding="8">
+            <StackPanel>
+                <local:ImageCheckBox Margin="0,0,0,6" IsChecked="{Binding IsFirstBoxChecked}"
+                                 Content="First check box"
+                                 CheckedImage="Resources\checkbox1-checked.png"
+                                 UnCheckedImage="Resources\checkbox1-unchecked.png"
+                                 ShadowColor="#7FB6E5"/>
+                <local:ImageCheckBox Margin="0,0,0,6" IsChecked="{Binding IsSecondBoxChecked}"
+                                 Content="Second check box"
+                                 CheckedImage="Resources\checkbox2-checked.png"
+                                 UnCheckedImage="Resources\checkbox2-unchecked.png"
+                                 ShadowColor="#00DE01"/>
+                <local:ImageCheckBox Margin="0,0,0,6" IsChecked="{Binding IsThirdBoxChecked}"
+                                 Content="Third check box"
+                                 CheckedImage="Resources\checkbox3-checked.png"
+                                 UnCheckedImage="Resources\checkbox3-unchecked.png"
+                                 ShadowColor="#FF900A"/>
+                <Separator/>
+                <local:ImageCheckBox Margin="0,6,0,0" IsChecked="{Binding AreAllBoxesChecked}"
+                                 Content="Check All (Three State)"
+                                 CheckedImage="Resources\checkbox4-checked.png"
+                                 UnCheckedImage="Resources\checkbox4-unchecked.png"
+                                 IndeterminateImage="Resources\checkbox4-indeterminate.png"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Create a group to hold the top row of button samples. -->
+
+        <GroupBox Grid.Row="1" Header="Buttons" Margin="8" Padding="8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <!-- Note that each button is still one of our new custom buttons. The default style
+                 is now pulled in via the theme and the width, height, and font size properties are
+                 set via the style defined in this window's resources section. -->
+
+                <local:ImageButton Click="ButtonClick" Source="Resources/add-icon.png"
+                               ShadowColor="#7A8291"/>
+                <local:ImageButton Click="ButtonClick" Source="Resources/subtract-icon.png"
+                               ShadowColor="#84A7B9"/>
+                <local:ImageButton Click="ButtonClick" Source="Resources/previous-icon.png"
+                               ShadowColor="#E54CA6"/>
+                <local:ImageButton Click="ButtonClick" Source="Resources/next-icon.png"
+                               ShadowColor="#13A38D"/>
+                <local:ImageButton Click="ButtonClick" Source="Resources/upload-icon.png"
+                               ShadowColor="#ED686E"/>
+                <local:ImageButton Click="ButtonClick" Source="Resources/download-icon.png"
+                               ShadowColor="#00C9CA"/>
+                <local:ImageButton Click="CloseButtonClick" Source="Resources/turn-off-icon.png"
+                               ShadowColor="#5FCECA"/>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Create a group to hold the bottom row of button samples. Note that these samples all
+             combine the button image along with regular button content (including the first one
+             which sets no image at all. -->
+
+        <GroupBox Grid.Row="2" Header="Buttons With Content" Margin="8" Padding="8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:ImageButton Content="Push Me!" Width="120" Click="ButtonClick"/>
+                <local:ImageButton Content="Help!" Source="Resources/small-help-icon.png"
+                               Width="120" Click="ButtonClick" ShadowColor="#3C94E7"
+                               Orientation="Vertical"/>
+                <local:ImageButton Content="Close Me!" Source="Resources/small-turn-off-icon.png"
+                               ShadowColor="#5FCECA" Width="120" Click="CloseButtonClick"/>
+            </StackPanel>
+        </GroupBox>
+        
+        <!-- Create a group to hold a single menu button sample. The simple menu under the button
+             will contain selections that simply put up a message box. Note that the last item is
+             setup to close the program. -->
+
+        <GroupBox Grid.Row="3" Header="Menu Button" Margin="8" Padding="8">
+            <StackPanel>
+                <local:MenuButton Content="Select a Command" Padding="4">
+                    <MenuItem Header="Open File" Click="MenuItemClick"/>
+                    <MenuItem Header="Save" Click="MenuItemClick"/>
+                    <MenuItem Header="Exit" Click="CloseButtonClick"/>
+                </local:MenuButton>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

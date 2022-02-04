@@ -1,0 +1,88 @@
+﻿<!-- The "ResizeMode" property is set to "NoResize" which fixes the window size and disallows any
+     resizing by the user. -->
+
+<Window x:Class="MFCLike.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MFCLike" Height="208" Width="325" ResizeMode="NoResize">
+
+    <!-- Begin definition of the main stack panel to hold the main controls. -->
+
+    <StackPanel Margin="6">
+
+        <!-- Place a text block containing a brief description of the app. Follow that with a
+             separator control. The separator is simply a control that separates groups of items
+             by drawing a horizontal or vertical line. -->
+
+        <TextBlock Text="Cookie Sales" FontWeight="Bold" FontStyle="Italic"/>
+        <Separator Margin="0,0,0,10"/>
+
+        <!-- Place a stack panel to show the scout name. The scout name will be represented by a
+             text label "Scout Name" along with a textbox where the name can be entered/edited by
+             the user.
+
+             Note here that the textbox has been given a "Name" property. This name can be used in
+             the code-behind to access the textbox element directly.
+
+             Also note that we've specified an event handler for the "LostFocus" event. The event
+             handler will be called whenever UI focus leaves the textbox and will copy the contents
+             from the textbox into our data object. -->
+
+        <StackPanel Margin="8,0">
+            <TextBlock Text="Scout Name"/>
+            <TextBox Name="nameBox" LostFocus="OnNameLostFocus"/>
+        </StackPanel>
+
+        <!-- Place another stack panel to show how many cookie boxes the scout has sold. This info
+             will be represented by a text label "Boxes Sold" along with a textbox where the number
+             can be entered/edited by hand as well as two small buttons. One button to increment
+             the number of sales by one and another for to decrement by one. -->
+
+        <StackPanel Margin="8">
+
+            <!-- Place the text label for the number of cookie boxes sold. -->
+
+            <TextBlock Text="Boxes Sold"/>
+
+            <!-- Place a horizontally oriented stack panel to hold the textbox along with the extra
+                 buttons for incrementing/decrementing the number of sales. -->
+
+            <StackPanel Orientation="Horizontal">
+
+                <!-- Place the textbox. Again the textbox is given a name allowing us access to the
+                     element in the code-behind and again we will catch the "LostFocus" event with
+                     a custom event handler in order to copy data into our data object. -->
+
+                <TextBox Name="soldBox" Width="60" HorizontalAlignment="Left" LostFocus="OnSoldLostFocus"/>
+
+                <!-- Place two square buttons right after the textbox.
+
+                     These buttons are used to add a sale to the tally of cookie boxes sold and/or
+                     to subtract from the tally of boxes sold.
+
+                     Each button has its own event handler assigned to the "Click" event so that it
+                     can execute the operation for which it is intended.
+
+                     The subtract button is named. This will allow us access to button element in
+                     the code-behind and we'll use this access to enable or disable the button
+                     depending on whether the sales total is zero or not.
+
+                     Also note the use of the "IsEnabled" property in order to default the button to
+                     being disabled. -->
+
+                <Button Width="20" Content="+" Margin="6,0,0,0" Click="AddSaleButtonClick"/>
+                <Button Width="20" Content="-" Margin="6,0,0,0" Click="SubtractSaleButtonClick"
+                        Name="subtractSaleButton" IsEnabled="False"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Lastly, add the "Close" button. -->
+
+        <Button Margin="0,10" Height="24" Width="156" Click="CloseButtonClick">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Resources/close-icon-16x16.png" Stretch="None"/>
+                <TextBlock Margin="6,0" Text="Close"/>
+            </StackPanel>
+        </Button>
+    </StackPanel>
+</Window>

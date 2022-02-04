@@ -1,0 +1,51 @@
+<Window x:Class="AlignMarginPadding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AlignMarginPadding" Width="525" Height="350">
+
+    <!-- Place the button that will "Close" the application.
+
+         Several new properties are introduced here to size and position the button. First note
+         the properties "VerticalAlignment" and "HorizontalAlignment". Setting these to "Top" and
+         "Left" align the button to the top left corner of the parent (the window in this case).
+         The possible values for vertical alignment are "Top", "Bottom", "Center", or "Stretch".
+         Similarly, the values for horizontal alignment are "Left", "Right", "Center", or "Stretch".
+         For both alignments, the first three values are self-explanatory. When "Stretch" is applied
+         to either the vertical or horizontal alignment, the button is placed in the center and then
+         stretched to the top/bottom or left/right of the parent. This is actually the default
+         value for both properties which is why when a button is placed with no other properties,
+         it takes up the entirety of the parent.
+
+         Since we've specified "Top" and "Left" for the alignment properties, there is no stretching
+         and the button is sized just big enough to hold the text content. To add some space around
+         the text making the button a bit more attractive, we use the "Padding" property to add some
+         space between the content and the button borders. There are three different ways to specify
+         the padding property (if you're familiar with CSS, this shouldn't be new to you).
+
+             Padding="left,top,right,bottom"
+             Padding="left-right,top-bottom"
+             Padding="thickness"
+
+         The first allows the specification of values for each of the four sides left, top, right,
+         and bottom in that order. The second takes two values, applies the first to both the left
+         and right sides, and applies the second to both the top and the bottom. The last takes a
+         single value and applies it to all four sides. For this button, we specify two values
+         applying one value for right/left padding and another for top/bottom padding.
+
+         Lastly note the use of the "Margin" property. With no margin specified, the button would
+         be stuffed all the way into the top left corner of the window. By applying a margin, we
+         put a little space between the button and the window borders. Like the padding property,
+         there are three variations of the margin property allowing you to supply discrete values
+         the four margins, supply two values for right/left vs top/bottom, or supply a single value
+         for all four margins. Here we use the single value parameter applying the same margin to
+         all four sides.
+
+         Note that if the alignments were set to "Stretch", the margins would be used to calculate
+         the final size of the button. Since the alignments are set to "Left" and "Top" in this
+         case though, the margins have no effect on the button size and the right and bottom margins
+         are interpreted as minimum values if the window is resized. -->
+
+    <Button VerticalAlignment="Top" HorizontalAlignment="Left" Padding="40,5" Margin="10"
+            Content="Close" Click="ButtonClick"/>
+
+</Window>

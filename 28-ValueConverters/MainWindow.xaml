@@ -1,0 +1,171 @@
+﻿<Window x:Class="ValueConverters.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ValueConverters"
+        Title="ValueConverters" Height="510" Width="325" ResizeMode="NoResize">
+
+    <!-- Create a resource section for the window. -->
+
+    <Window.Resources>
+
+        <!-- In this sample we're going to need to use some converters. Converters are used when
+             you bind the property of a XAML element to a property in the data context and the data
+             types don't match. In some cases, WPF handles this automatically. For example, when we
+             bind the "IsEnabled" property of a control to the "Count" property of a collection,
+             WPF is automatically handling the conversion between an integer and a boolean. In this
+             sample though, we have some conversions that are fairly custom so we have to do it.
+        
+             Starting with the first one, the "LevelToColorConverter" is used to convert between
+             the value of a "GradeLevel" enum and a color. See the comments in the converter code
+             itself as well as in the data template below. -->
+
+        <local:LevelToColorConverter x:Key="levelToColorConverter"/>
+        
+        <!-- The next converter converts between the value of a "GradeLevel" enum and a font style.
+             See the converter comments as well as the comments in the data template below. -->
+
+        <local:LevelToStyleConverter x:Key="levelToStyleConverter"/>
+        
+        <!-- This converter is more tricky. This converter is used to determine whether or not a
+             radio button should be checked by binding it to an enum property on the data context.
+             Again see the comments in the converter code and especially the comments on the radio
+             buttons down below. -->
+
+        <local:LevelToBoolConverter x:Key="levelToBoolConverter"/>
+
+        <!-- Create the data template for displaying a scout in the listbox.
+        
+             Note the binding for both the "Foreground" and "FontStyle" properties on the text
+             block. In addition to binding the property to a property/path on the data context,
+             we also specify one of our custom converters. This tells WPF that to determine which
+             color or font style to used based on "GradeLevel", that specific converter should be
+             called to convert between the two different types. -->
+
+        <DataTemplate DataType="{x:Type local:Scout}">
+            <TextBlock Foreground="{Binding Path=GradeLevel, Converter={StaticResource levelToColorConverter}}"
+                       FontStyle="{Binding Path=GradeLevel, Converter={StaticResource levelToStyleConverter}}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} - {1}">
+                        <Binding Path="Name"/>
+                        <Binding Path="Sold"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
+
+        <!-- Create a style for any radio buttons that are placed in this window. We'll be using
+             radio buttons to allow the user to select the grade level for a scout. -->
+
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="IsEnabled" Value="{Binding Count}"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- Create an instance of the "Scouts" class and set it as the data context on the window. -->
+
+    <Window.DataContext>
+        <local:Scouts/>
+    </Window.DataContext>
+
+    <!-- Begin definition of the main dock panel element. -->
+
+    <DockPanel>
+
+        <!-- Start the menu definition docking the menu to the top of the dock panel and add the
+             menu items. -->
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Click="ExitClick"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="_Add Scout" Click="AddScoutClick"/>
+                <MenuItem Header="_Delete Scout" Click="DeleteScoutClick" IsEnabled="{Binding Count}"/>
+                <Separator/>
+                <MenuItem Header="Add _Sale" Click="AddSaleClick" IsEnabled="{Binding Count}"/>
+                <MenuItem Header="Sub_tract Sale" Click="SubtractSaleClick">
+                    <MenuItem.IsEnabled>
+                        <PriorityBinding>
+                            <Binding Path="Sold"/>
+                            <Binding Path="Count"/>
+                        </PriorityBinding>
+                    </MenuItem.IsEnabled>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About..." Click="AboutClick"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Begin definition of the main stack panel container. -->
+
+        <StackPanel DockPanel.Dock="Top" Margin="6">
+
+            <!-- Place a text block containing a brief description of the app. -->
+
+            <TextBlock Text="Cookie Sales" FontWeight="Bold" FontStyle="Italic"/>
+            <Separator Margin="0,0,0,10"/>
+
+            <!-- Place a stack panel to show the scout name. -->
+
+            <StackPanel Margin="8,0">
+                <TextBlock Text="Scout Name"/>
+                <TextBox Text="{Binding Name}" IsEnabled="{Binding Count}"/>
+            </StackPanel>
+
+            <!-- Place another stack panel to show how many cookie boxes the scout has sold. -->
+
+            <StackPanel Margin="8">
+                <TextBlock Text="Boxes Sold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="60" HorizontalAlignment="Left" Text="{Binding Sold}"
+                             IsEnabled="{Binding Count}"/>
+                    <Button Width="20" Content="+" Margin="6,0,0,0" Click="AddSaleClick"
+                            IsEnabled="{Binding Count}"/>
+                    <Button Width="20" Content="-" Margin="6,0,0,0" Click="SubtractSaleClick">
+                        <Button.IsEnabled>
+                            <PriorityBinding>
+                                <Binding Path="Sold"/>
+                                <Binding Path="Count"/>
+                            </PriorityBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Place a group box that we'll fill with radio buttons allowing for selection of
+                 grade level for an individual scout.
+            
+                 Note the data binding for the "IsChecked" property on the radio buttons. Like we did
+                 for the color and font style binding, we bind to the "GradeLevel" property on the data
+                 context and pass in a converter. This particular converter also requires an additional
+                 parameter. Here we bind to the "GradeLevel" property in the data context but we also
+                 pass in a parameter to compare that value to. If they match, "IsChecked" is set to
+                 true. If they don't, "IsChecked" is set to value. Read through the comments in the
+                 code for "LevelToBoolConverter" thoroughly to get a better understanding of how this
+                 all works. -->
+
+            <GroupBox Header="Grade Level" Margin="8" Padding="4">
+                <StackPanel>
+                    <RadioButton Content="Brownie"
+                                 IsChecked="{Binding Path=GradeLevel,
+                                                     Converter={StaticResource levelToBoolConverter},
+                                                     ConverterParameter=Brownie}"/>
+                    <RadioButton Content="Junior"
+                                 IsChecked="{Binding Path=GradeLevel,
+                                                     Converter={StaticResource levelToBoolConverter},
+                                                     ConverterParameter=Junior}"/>
+                    <RadioButton Content="Senior"
+                                 IsChecked="{Binding Path=GradeLevel,
+                                                     Converter={StaticResource levelToBoolConverter},
+                                                     ConverterParameter=Senior}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
+        <!-- Place a listbox to hold the list of participating scouts. -->
+        
+        <ListBox Margin="8" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}"/>
+    </DockPanel>
+</Window>

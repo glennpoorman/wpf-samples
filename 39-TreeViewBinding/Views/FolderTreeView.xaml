@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="TreeViewBinding.Views.FolderTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodels="clr-namespace:TreeViewBinding.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="600">
+
+    <!-- Create an instance of the folder tree view model to be the data context for the view. -->
+    
+    <UserControl.DataContext>
+        <viewmodels:FolderTreeViewModel/>
+    </UserControl.DataContext>
+
+    <!-- Begin definition of the main dock panel element. -->
+
+    <DockPanel>
+        
+        <!-- Place a text block containing a brief description of what to do. -->
+
+        <TextBlock DockPanel.Dock="Top" Margin="8,8,0,0" FontWeight="Bold"
+                   Text="Browse to a folder to display its contents in the tree"/>
+
+        <!-- Create a dock panel to hold the "Browse" button (docked right) and a text block that
+             will contain the currently selected path. The browse button brings up a folder browse
+             dialog and is the only way to set the path. -->
+
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="8">
+            <Button DockPanel.Dock="Right" Height="24" Width="80" Margin="3,0,0,0" Content="Browse..."
+                    Command="{Binding Browse}"/>
+            <Border Margin="0,0,3,0" BorderThickness="1" BorderBrush="Gray">
+                <TextBlock Padding="2" Text="{Binding CurrentPath}"/>
+            </Border>
+        </DockPanel>
+
+        <!-- Create a stack panel docked at the bottom right to hole the "About" and "Close" buttons. -->
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" Margin="8">
+            <Button Height="24" Width="140" Margin="0,0,3,0" Command="{Binding About}" Content="About"/>
+            <Button Height="24" Width="140" Margin="3,0,0,0" Command="{Binding Exit}" Content="Close"/>
+        </StackPanel>
+
+        <!-- Create a tree view to take up the rest of the space.
+        
+             Note that we bind "ItemsSource" to the "Children" property on the data context. This
+             looks like how we've handled linear lists in previous samples. In the tree view
+             however, this really only applies to the top level list. What happens after that is
+             dependent on the data templates we set up for the different kinds of items that can
+             appear in the view. -->
+
+        <TreeView Margin="8,0" ItemsSource="{Binding Children}">
+
+            <!-- Create a resources section just for this tree view. Here we'll define the data
+                 templates. For simple trees where the data type for every item is the same, you
+                 can define the data template here in the resources section or you can define it
+                 directly under "TreeView.ItemTemplate" like our earliest listbox data templates.
+                 In this sample though, we have to be able to display both files and folders and
+                 the behavior between them is a little different so we need to define a data
+                 template for each kind of item that can appear in the tree. -->
+
+            <TreeView.Resources>
+                
+                <!-- Start by defining our simplest data template which is the data template for
+                     files. A file is a leaf node (had no children) so all we're going to do is
+                     display the file name in a text block. That simple. -->
+
+                <DataTemplate DataType="{x:Type viewmodels:FileViewModel}">
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+
+                <!-- Things get a little trickier for folders.
+                
+                     First off, a folder can contain sub-folders or files which means it is a tree
+                     item that can have children. So in this case, a simple "DataTemplate" won't
+                     cut it. Here we use a "HierarchicalDataTemplate" and bind the "ItemsSource"
+                     property to the property on the folder view model that represents the list of
+                     children. -->
+
+                <HierarchicalDataTemplate DataType="{x:Type viewmodels:FolderViewModel}" ItemsSource="{Binding Children}">
+                    
+                    <!-- For the display, we want a textblock displaying the folder name just like we
+                         did for files. We also want to show a folder image just to the left of the
+                         folder name. So here we create a horizontal stack panel containing the
+                         folder image followed by the folder name. -->
+
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="folderImg" Source="../Resources/folder_closed.png"/>
+                        <TextBlock Margin="4,0,0,0" Text="{Binding Name}"/>
+                    </StackPanel>
+                    
+                    <!-- We will also define a triggers section for this data template. We want to
+                         catch when a tree item is expanded so we can change the folder image from
+                         a closed folder to an open folder. -->
+
+                    <HierarchicalDataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=TreeViewItem}, Path=IsExpanded}" Value="True">
+                            <Setter TargetName="folderImg" Property="Source" Value="../Resources/folder_open.png"/>
+                        </DataTrigger>
+                    </HierarchicalDataTemplate.Triggers>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+            
+            <!-- Lastly we create a style on the "TreeViewItem" binding the "IsExpanded" property
+                 to the "IsOpen" property on our view model. -->
+
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsOpen}"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+    </DockPanel>
+</UserControl>

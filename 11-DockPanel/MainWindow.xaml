@@ -1,0 +1,58 @@
+﻿<Window x:Class="DockPanel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DockPanel" Height="350" Width="525">
+
+    <!-- Begin the dock panel definition. The dock panel is a container element that can hold
+         other UI elements that are docked to the top, bottom, left or right. Their final position
+         and size is determined both by the docking and the order in which they were specified. -->
+
+    <DockPanel>
+
+        <!-- Place two buttons both docked to the top. How these buttons are  actually placed is
+             order dependent as elements inside the dock panel cannot overlap. That means that the
+             first button will dock to the top of the panel while the second docks only as close
+             as it can get without interfering with the first (i.e. it docks to the bottom of the
+             first button. -->
+
+        <Button DockPanel.Dock="Top" Padding="4" Click="ButtonClick" Content="Top"/>
+        <Button DockPanel.Dock="Top" Padding="4" Click="ButtonClick" Content="Another Top"/>
+
+        <!-- Now place two buttons both docked to the bottom of the panel. The first will be our
+             "Close" button and the second will be used to clear out the listbox (placed last).
+             As with the first two buttons, the clear button will only dock as close as it can get
+             to the bottom of the panel (i.e. docks to the top of the close button). Both of these
+             buttons have specific tasks so they will each have an event handler different from
+             the other buttons. -->
+
+        <Button DockPanel.Dock="Bottom" Padding="4" Click="CloseButtonClick" Content="Close"/>
+        <Button DockPanel.Dock="Bottom" Padding="4" Click="ClearButtonClick" Content = "Clear List"/>
+
+        <!-- Place two more buttons docking one to the right of the panel and the other to the
+             left. Note that that vertically, the buttons only extend upward to the bottom of the
+             two buttons already placed at the top and to the top of the button placed at the
+             bottom. This is another example of how ordering is important. If we'd placed these
+             buttons first, they would have extended to the top and bottom of the panel itself. -->
+
+        <Button Click="ButtonClick" Width="50" DockPanel.Dock="Left" Content="Left"/>
+        <Button Click="ButtonClick" Width="50" DockPanel.Dock="Right" Content="Right"/>
+
+        <!-- Place another button docked to the bottom. Order plays a role once again. With two
+             other buttons already docked to the bottom, this button will dock to the top of those
+             buttons. Also since the left and right buttons have already been placed, this button
+             can only stretch horizontally up to the edges of those buttons. That means this button
+             will be slightly more narrow than the other button already docked to the bottom. -->
+
+        <Button Click="ButtonClick" Padding="4" DockPanel.Dock="Bottom" Content="Bottom"/>
+
+        <!-- Lastly, place a list box. In a dock panel, the last item placed will always fill the
+             rest of the vacant space. Also note our first use of the "Name" property. This
+             property names the variable that can be used in the code-behind to access additional
+             properties and methods on the listbox during execution. Note that all XAML elements
+             can be named.
+
+             Also note that we set an event handler for the "MouseDoubleClick" event here. -->
+
+        <ListBox Name="listBox" MouseDoubleClick="list_DoubleClick" />
+    </DockPanel>
+</Window>

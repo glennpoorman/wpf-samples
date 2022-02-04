@@ -1,0 +1,34 @@
+﻿<Window x:Class="MVVM.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="About MVVM" Height="200" Width="460" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <!-- Begin definition of a dock panel to hold the window content. -->
+
+    <DockPanel Margin="8">
+
+        <!-- Dock an image for the app to the left side of the panel. -->
+
+        <Image DockPanel.Dock="Left" Source="Resources/WPF.png" Stretch="None"/>
+
+        <!-- Dock the "Ok" button to the bottom of the dialog. -->
+
+        <Button DockPanel.Dock="Bottom" Height="23" Width="75" HorizontalAlignment="Right"
+                Content="Ok" IsCancel="True" IsDefault="True" />
+
+        <!-- Create a stack panel to fill the rest of the dialog. Put labels in the stack panel to
+             hold the assembly title, description, version, and copyright string. -->
+
+        <StackPanel Margin="24,0,0,0">
+            <Label Content="{Binding AssemblyTitle}" />
+            <Label Content="{Binding AssemblyVersion}" />
+            <Label Content="{Binding AssemblyCopyright}" />
+            <Label Content="{Binding AssemblyDescription}" />
+        </StackPanel>
+    </DockPanel>
+</Window>

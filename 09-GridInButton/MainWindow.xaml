@@ -1,0 +1,43 @@
+<Window x:Class="GridInButton.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GridInButton" Width="525" Height="350">
+
+    <!-- Place a 120x120 button in the center of the window. -->
+
+    <Button Width="120" Height="120" Click="ButtonClick">
+
+        <!-- For the button content, begin a grid definition. -->
+
+        <Grid>
+
+            <!-- The grid will contain one column and two rows. We're going to place an image in
+                 the first row and text in the second. The image is much larger than the string
+                 so in order to avoid two equally sized cells, set the height of the second row
+                 to "Auto". That will size the row just large enough for the text and allow the
+                 row with the image to use up the remaining space. -->
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Now place the image in the first grid row. -->
+
+            <Image Grid.Row="0" Source="Resources/close-icon-64x64.png" Stretch="None"/>
+
+            <!-- Place the "Close" text block in the second grid row.
+
+                 Note the use of the "FontWeight" property to make the text appear bold.
+
+                 Also note the "TextAlignment" property used to center the string. In this case,
+                 using "HorizontalAlignment" wouldn't have worked. That property applies to the
+                 element and if you look inside the designer window, you'll see that the text
+                 block is already sized to take up the entire width of the row making the regular
+                 alignment property useless. The additional property "TextAlignment" applies to
+                 the text within the block. -->
+
+            <TextBlock Grid.Row="2" TextAlignment="Center" FontWeight="Bold" Text="Close"/>
+        </Grid>
+    </Button>
+</Window>

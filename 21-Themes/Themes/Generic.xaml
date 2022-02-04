@@ -1,0 +1,54 @@
+﻿<!-- "Generic.xaml" is yet another resource dictionary but its name and location make it special.
+     By naming the file "Generic.xaml" and placing it in a folder named "Themes" right under the
+     project folder, we tell the program to load any resources from this file on startup making
+     them globally available.
+
+     Two specific things need to be done for this to work though.
+
+     1. Any custom control classes need to contain a static constructor that overrides the default
+        style. The "ImageButton" class (for example) is modified in this sample to implement a
+        static constructor that contains the following code:
+
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageButton),
+                new FrameworkPropertyMetadata(typeof(ImageButton)));
+
+     2. The file "AssemblyInfo.cs" (located in the "Properties" folder) needs to be modified so that
+        the "ThemeInfo" attribute reads as follows:
+
+            [assembly: ThemeInfo(
+                ResourceDictionaryLocation.SourceAssembly,
+                ResourceDictionaryLocation.SourceAssembly
+            )] -->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Themes">
+    
+    <!-- To make this work we could have easily copied the XAML code from a file such as
+         "ImageButton.xaml" into this file. That would clutter this file up in a hurry and in a
+         real application, it's more than likely you'll have several custom controls you want to
+         pull in. So here we leave the style definitions where they are and instead use the
+         "MergedDictionaries" property to pull them all in when this file is pulled in. -->
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <!-- The "MergedDictionaries" section can contain any number of references to other
+             resource dictionaries. Note the syntax used for "Source" here. This is actually the
+             preferred syntax for loading any kind of resource be it a resource dictionary or a
+             an image. So far we've kept the syntax simple writing things like:
+        
+                 Source="..\ImageButton.xaml"
+        
+             As a rule it's better to be very specific with where your resources are coming from
+             and in many cases they may be coming from other assemblies. Here we use a WPF URI
+             (Uniform Resource Identifier) to specifically specify where the resource is coming
+             from. There are various forms of the URI depending on whether your resource is coming
+             from the local assembly, a referenced assembly, etc. Here we specify that the resource
+             is coming from the local assembly and is located at the root of the assemblies project
+             folder. -->
+
+        <ResourceDictionary Source="pack://application:,,,/Themes;component/ImageButton.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Themes;component/ImageCheckBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Themes;component/MenuButton.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

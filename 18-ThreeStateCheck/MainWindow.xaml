@@ -1,0 +1,69 @@
+﻿<Window x:Class="ThreeStateCheck.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ThreeStateCheck"
+        Title="ThreeStateCheck" Height="190" Width="300" ResizeMode="NoResize">
+
+    <!-- Create a static instance of the "CheckBoxManager" class and set it as the data context
+         on this window. -->
+
+    <Window.DataContext>
+        <local:CheckBoxManager/>
+    </Window.DataContext>
+
+    <!-- Create a grid with two rows autosizing the first row and setting the second to take up the
+         rest of the remaining space. -->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Put a stack panel in the first grid row containing four check boxes.
+        
+             Note that all four check boxes have bound their "IsChecked" properties to properties
+             on the "CheckBoxManager" class (the data context). The first three don't really do
+             anything except to blindly turn on and off and also toggle the property on the data
+             context.
+        
+             The third checkbox is more interesting. It is checked if the other three checkboxes
+             are all checked and unchecked if the other three are all unchecked. We need to show
+             an indeterminate state, however, if the state of the other three don't match.
+        
+             By default, checkboxes support a third (indeterminate) state. The "IsThreeState"
+             property can be set to true. This will allow a user to cycle through all three states.
+             Generally that is not needed though. In most cases it doesn't make sense to allow a
+             user to select an indeterminate state directly. Usually the state becomes indeterminate
+             as a result of other factors.
+        
+             To set a checkbox to be indeterminate directly, you set its "IsChecked" property to be
+             null instead of true of false. If you were doing this directly in XAML, you would write
+             it like:
+        
+                 <CheckBox IsChecked="{x:Null" ...
+        
+             Chances are, however, you're going to want to do this via data binding.
+        
+             Turning a two state checkbox into a three state checkbox is very easy. Instead of
+             binding the "IsChecked" property of the checkbox to a "bool" property on the data
+             context, you simply bind it to a nullable bool (bool?). To make use of the third state
+             then, you simply need to code the accessor of the property such that it returns a null
+             instead of true or false when it's appropriate.
+        
+             See the property accessor for "AreAllBoxesChecked" in the code behind to see how it
+             works for this case. -->
+
+        <StackPanel Grid.Row="0" Margin="8">
+            <CheckBox Margin="0,0,0,6" IsChecked="{Binding IsFirstBoxChecked}" Content="First check box."/>
+            <CheckBox Margin="0,0,0,6" IsChecked="{Binding IsSecondBoxChecked}" Content="Second check box."/>
+            <CheckBox Margin="0,0,0,6" IsChecked="{Binding IsThirdBoxChecked}" Content="Third check box."/>
+            <Separator/>
+            <CheckBox Margin="0,6,0,0" IsChecked="{Binding AreAllBoxesChecked}" Content="Check All"/>
+        </StackPanel>
+
+        <!-- Add the "Close" button in the second grid row. -->
+
+        <Button Grid.Row="1" Margin="8" Content="Close" Click="CloseButtonClick"/>
+    </Grid>
+</Window>

@@ -1,0 +1,19 @@
+﻿<Window x:Class="ButtonImage.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ButtonImage" Width="525" Height="350">
+
+    <!-- Within the window, place a 100x100 button. As in the previous sample, the width and height
+         are explicitly specified while WPF positions the button in the center of the window.
+
+         In this sample the content of the button will be slightly more complex so we use an
+         alternate syntax to specify the content placing an image element in between an opening
+         and closing button element. The "Source" property on the image specifies where to find
+         the image file while the "Stretch" property defines if and how the image size is modified.
+         By default, the image will be stretched to fit the button so we specify the value "None"
+         so as to maintain the original image size. -->
+
+    <Button Width="100" Height="100" Click="ButtonClick">
+        <Image Source="Resources/close-icon-64x64.png" Stretch="None"/>
+    </Button>
+</Window>
