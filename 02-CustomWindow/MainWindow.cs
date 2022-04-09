@@ -39,7 +39,7 @@ namespace CustomWindow
             // button. With no additional positioning information, WPF will keep the button positioned
             // in the center of the window even as the window is resized.
             //
-            Button button = new Button()
+            Button button = new()
             {
                 Content = "Close",
                 Width = 200,

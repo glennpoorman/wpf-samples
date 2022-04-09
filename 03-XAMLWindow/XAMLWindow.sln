@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XAMLWindow", "XAMLWindow.csproj", "{39BFA84D-63C9-42A9-B251-458DE68FD58C}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XAMLWindow", "XAMLWindow.csproj", "{C23B4651-92A3-49F8-8E3D-4C6AF7D69844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{39BFA84D-63C9-42A9-B251-458DE68FD58C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39BFA84D-63C9-42A9-B251-458DE68FD58C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39BFA84D-63C9-42A9-B251-458DE68FD58C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39BFA84D-63C9-42A9-B251-458DE68FD58C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C23B4651-92A3-49F8-8E3D-4C6AF7D69844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C23B4651-92A3-49F8-8E3D-4C6AF7D69844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C23B4651-92A3-49F8-8E3D-4C6AF7D69844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C23B4651-92A3-49F8-8E3D-4C6AF7D69844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFCF7612-DC6B-4D2F-AC27-DCF25D1C755C}
 	EndGlobalSection
 EndGlobal

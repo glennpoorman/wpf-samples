@@ -23,16 +23,16 @@ namespace StockWindow
         /// single-threaded apartment (STA). This is required for WPF applications.
         /// </remarks>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             // Create a stock WPF "Application" object.
             //
-            Application app = new Application();
+            Application app = new();
 
             // Create a stock WPF "Window" object setting its title, width, and height properties.
             // Note that the window is not displayed at this time.
             //
-            Window window = new Window()
+            Window window = new()
             {
                 Title = "StockWindow",
                 Width = 525,

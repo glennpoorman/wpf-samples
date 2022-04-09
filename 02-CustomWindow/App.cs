@@ -16,11 +16,11 @@ namespace CustomWindow
         /// The application's static main entry point.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             // Create an instance of the custom application class (this class).
             //
-            App app = new App();
+            App app = new();
 
             // Add a handler for the application "Startup" event. This handler (implemented below)
             // will be called when the application is run.
