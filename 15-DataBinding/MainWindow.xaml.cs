@@ -10,7 +10,7 @@ namespace DataBinding
         /// <summary>
         /// Single instance of the custom scout class for this application to operate on.
         /// </summary>
-        private readonly Scout scout = new Scout() { Name = "Susie Jones" };
+        private readonly Scout scout = new() { Name = "Susie Jones" };
 
         /// <summary>
         /// Main window class constructor.

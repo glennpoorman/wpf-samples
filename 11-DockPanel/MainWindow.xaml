@@ -53,6 +53,6 @@
 
              Also note that we set an event handler for the "MouseDoubleClick" event here. -->
 
-        <ListBox Name="listBox" MouseDoubleClick="list_DoubleClick" />
+        <ListBox Name="listBox" MouseDoubleClick="ListDoubleClick" />
     </DockPanel>
 </Window>

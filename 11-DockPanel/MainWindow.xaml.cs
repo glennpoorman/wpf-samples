@@ -61,7 +61,7 @@ namespace DockPanel
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the even data.</param>
-        private void list_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Fetch the index of the selected item in the list.
             //

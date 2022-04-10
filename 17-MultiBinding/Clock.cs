@@ -84,7 +84,7 @@ namespace MultiBinding
             // Now set a timer to call our event handler once every second to update this clock
             // to the current time.
             //
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            DispatcherTimer dispatcherTimer = new();
             dispatcherTimer.Tick += UpdateTime;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();

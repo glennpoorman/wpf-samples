@@ -10,7 +10,7 @@ namespace MFCLike
         /// <summary>
         /// Single instance of the custom scout class for this application to operate on.
         /// </summary>
-        private readonly Scout scout = new Scout() { Name = "Susie Jones" };
+        private readonly Scout scout = new() { Name = "Susie Jones" };
 
         /// <summary>
         /// Main window class constructor.
@@ -108,7 +108,7 @@ namespace MFCLike
             {
                 // If the new value is zero, disable the "Subtract" button. Otherwise, enable it.
                 //
-                subtractSaleButton.IsEnabled = (newValue > 0);
+                subtractSaleButton.IsEnabled = newValue > 0;
 
                 // Copy the new value into the scout instance.
                 //
