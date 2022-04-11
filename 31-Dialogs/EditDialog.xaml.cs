@@ -21,7 +21,7 @@ namespace Dialogs
         /// <summary>
         /// The original scout that was selected to edit.
         /// </summary>
-        public Scout Scout { get; private set; }
+        public Scout Scout { get; init; }
 
         /// <summary>
         /// The copy of the scout (data context) that will be bound to the window elements.

@@ -11,7 +11,7 @@ namespace FileIcons.ViewModels
         /// <summary>
         /// Collection of child view models (files/folders).
         /// </summary>
-        public ObservableCollection<BaseViewModel> Children { get; private set; }
+        public ObservableCollection<BaseViewModel> Children { get; } = new ObservableCollection<BaseViewModel>();
 
         /// <summary>
         /// View model constructor.
@@ -19,10 +19,6 @@ namespace FileIcons.ViewModels
         /// <param name="fullName">The full pathname of the folder.</param>
         public FolderViewModel(string fullName) : base(fullName)
         {
-            // Create the child collection for all files and sub-folders within this folder.
-            //
-            this.Children = new ObservableCollection<BaseViewModel>();
-
             // Fetch all of the sub-folders within this folder. Create a view model for each one
             // and add that view model to the collection.
             //

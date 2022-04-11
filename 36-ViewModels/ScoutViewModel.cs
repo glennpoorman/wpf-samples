@@ -19,6 +19,11 @@ namespace ViewModels
         private Scout scout;
 
         /// <summary>
+        /// The scout proxy used as the data context.
+        /// </summary>
+        private readonly Scout scoutProxy = new();
+
+        /// <summary>
         /// The original scout selected for editing.
         /// </summary>
         /// <remarks>
@@ -35,11 +40,6 @@ namespace ViewModels
         /// <summary>
         /// Scout name property.
         /// </summary>
-        private string name;
-
-        /// <summary>
-        /// Scout name property.
-        /// </summary>
         /// <remarks>
         /// This is the property that will be bound to the textbox in the edit dialog and will act
         /// as a proxy between the dialog and the original scout to be edited. Only when changes
@@ -47,14 +47,9 @@ namespace ViewModels
         /// </remarks>
         public string Name
         {
-            get => name;
-            set { name = value; OnPropertyChanged("Name"); }
+            get => scoutProxy.Name;
+            set { scoutProxy.Name = value; OnPropertyChanged("Name"); }
         }
-
-        /// <summary>
-        /// Number of cookie boxes sold property.
-        /// </summary>
-        private uint sold;
 
         /// <summary>
         /// Number of cookie boxes sold property.
@@ -66,14 +61,9 @@ namespace ViewModels
         /// </remarks>
         public uint Sold
         {
-            get => sold;
-            set { sold = value; OnPropertyChanged("Sold"); }
+            get => scoutProxy.Sold;
+            set { scoutProxy.Sold = value; OnPropertyChanged("Sold"); }
         }
-
-        /// <summary>
-        /// Grade level property.
-        /// </summary>
-        private GradeLevel gradeLevel;
 
         /// <summary>
         /// Grade level property.
@@ -85,14 +75,14 @@ namespace ViewModels
         /// </remarks>
         public GradeLevel GradeLevel
         {
-            get => gradeLevel;
-            set { gradeLevel = value; OnPropertyChanged("GradeLevel"); }
+            get => scoutProxy.GradeLevel;
+            set { scoutProxy.GradeLevel = value; OnPropertyChanged("GradeLevel"); }
         }
 
         /// <summary>
         /// Command saves changes to the originally selected scout and closes the edit session.
         /// </summary>
-        public ICommand Ok { get; private set; }
+        public ICommand Ok { get; init; }
 
         // Like the main window, we want to keep UI-specific code out of the view model. To that
         // end, instead of having the "Ok" command close the edit window, we define an event that
@@ -118,9 +108,9 @@ namespace ViewModels
             Ok = new RelayCommand(
                 (p) =>
                 {
-                    Scout.Name = this.Name;
-                    Scout.Sold = this.Sold;
-                    Scout.GradeLevel = this.GradeLevel;
+                    Scout.Name = scoutProxy.Name;
+                    Scout.Sold = scoutProxy.Sold;
+                    Scout.GradeLevel = scoutProxy.GradeLevel;
                     CloseRequested?.Invoke();
                 },
                 (p) => !string.IsNullOrWhiteSpace(Name)

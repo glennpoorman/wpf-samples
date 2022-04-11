@@ -18,7 +18,7 @@ namespace ICommands
         /// itself as its own data context so we'll need to expose the collection through this public
         /// "Scouts" property so it can be bound to in the XAML.
         /// </remarks>
-        public Scouts Scouts { get; private set; }
+        public Scouts Scouts { get; } = new Scouts();
 
         /// <summary>
         /// The currently selected scout in the UI view of the collection.
@@ -45,37 +45,37 @@ namespace ICommands
         /// <summary>
         /// Command adds a new scout to the collection.
         /// </summary>
-        public ICommand AddScout { get; private set; }
+        public ICommand AddScout { get; init; }
 
         /// <summary>
         /// Command interacts with the user to allow editing of the currently selected scout.
         /// </summary>
-        public ICommand EditScout { get; private set; }
+        public ICommand EditScout { get; init; }
 
         /// <summary>
         /// Command deletes the currently selected scout.
         /// </summary>
-        public ICommand DeleteScout { get; private set; }
+        public ICommand DeleteScout { get; init; }
 
         /// <summary>
         /// Command adds one sale to the tally of the currently selected scout.
         /// </summary>
-        public ICommand AddSale { get; private set; }
+        public ICommand AddSale { get; init; }
 
         /// <summary>
         /// Command subtracts one sale from the tally of the currently selected scout.
         /// </summary>
-        public ICommand SubtractSale { get; private set; }
+        public ICommand SubtractSale { get; init; }
 
         /// <summary>
         /// Command displays information about this application.
         /// </summary>
-        public ICommand About { get; private set; }
+        public ICommand About { get; init; }
 
         /// <summary>
         /// Command shuts down the application.
         /// </summary>
-        public ICommand Exit { get; private set; }
+        public ICommand Exit { get; init; }
 
         /// <summary>
         /// Main window class constructor.
@@ -83,10 +83,6 @@ namespace ICommands
         public MainWindow()
         {
             InitializeComponent();
-
-            // Create the collection of scouts to be managed.
-            //
-            this.Scouts = new Scouts();
 
             // Set the window to be its own data context.
             //

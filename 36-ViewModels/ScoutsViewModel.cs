@@ -16,7 +16,7 @@ namespace ViewModels
         /// <summary>
         /// The collection of scouts to operate on.
         /// </summary>
-        public Scouts Scouts { get; private set; }
+        public Scouts Scouts { get; } = new Scouts();
 
         /// <summary>
         /// The currently selected item.
@@ -33,37 +33,37 @@ namespace ViewModels
         /// <summary>
         /// Command adds a new scout to the collection.
         /// </summary>
-        public ICommand AddScout { get; private set; }
+        public ICommand AddScout { get; init; }
 
         /// <summary>
         /// Command interacts with the user to allow editing of the currently selected scout.
         /// </summary>
-        public ICommand EditScout { get; private set; }
+        public ICommand EditScout { get; init; }
 
         /// <summary>
         /// Command deletes the currently selected scout.
         /// </summary>
-        public ICommand DeleteScout { get; private set; }
+        public ICommand DeleteScout { get; init; }
 
         /// <summary>
         /// Command adds one sale to the tally of the currently selected scout.
         /// </summary>
-        public ICommand AddSale { get; private set; }
+        public ICommand AddSale { get; init; }
 
         /// <summary>
         /// Command subtracts one sale from the tally of the currently selected scout.
         /// </summary>
-        public ICommand SubtractSale { get; private set; }
+        public ICommand SubtractSale { get; init; }
 
         /// <summary>
         /// Command displays information about this application.
         /// </summary>
-        public ICommand About { get; private set; }
+        public ICommand About { get; init; }
 
         /// <summary>
         /// Command shuts down the application.
         /// </summary>
-        public ICommand Exit { get; private set; }
+        public ICommand Exit { get; init; }
 
         // We'd really like to keep UI-specific code out of the view model thus keeping the view
         // model UI neutral. To that end, for items that will require UI (edit, about, close), we
@@ -93,10 +93,6 @@ namespace ViewModels
         /// </summary>
         public ScoutsViewModel()
         {
-            // Create the scouts collection.
-            //
-            this.Scouts = new Scouts();
-
             // Create the "Add Scout" command. The handler code adds a new scout to the collection.
             //
             AddScout = new RelayCommand(

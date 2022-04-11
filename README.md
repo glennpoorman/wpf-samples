@@ -4,7 +4,7 @@ These samples show how to write C# applications using the Windows Presentation F
 
 ## Requirements
 
-You should have (minimum) Visual Studio 2017 installed on your system.
+You should have (minimum) Visual Studio 2019 installed on your system. All projects currently target .NET 5.0.
 
 ## How to proceed
 

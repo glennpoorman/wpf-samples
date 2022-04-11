@@ -13,56 +13,46 @@ namespace ContextMenus.ViewModels
         /// <summary>
         /// The original scout selected for editing.
         /// </summary>
-        public Scout Scout { get; private set; }
+        public Scout Scout { get; init; }
 
         /// <summary>
-        /// Scout name property.
+        /// The scout proxy used as the data context.
         /// </summary>
-        private string name;
+        private readonly Scout scoutProxy = new();
 
         /// <summary>
         /// Scout name property.
         /// </summary>
         public string Name
         {
-            get => name;
-            set { name = value; OnPropertyChanged("Name"); }
+            get => scoutProxy.Name;
+            set { scoutProxy.Name = value; OnPropertyChanged("Name"); }
         }
-
-        /// <summary>
-        /// Number of cookie boxes sold property.
-        /// </summary>
-        private uint sold;
 
         /// <summary>
         /// Number of cookie boxes sold property.
         /// </summary>
         public uint Sold
         {
-            get => sold;
-            set { sold = value; OnPropertyChanged("Sold"); }
+            get => scoutProxy.Sold;
+            set { scoutProxy.Sold = value; OnPropertyChanged("Sold"); }
         }
-
-        /// <summary>
-        /// Grade level property.
-        /// </summary>
-        private GradeLevel gradeLevel;
 
         public GradeLevel GradeLevel
         {
-            get => gradeLevel;
-            set { gradeLevel = value; OnPropertyChanged("GradeLevel"); }
+            get => scoutProxy.GradeLevel;
+            set { scoutProxy.GradeLevel = value; OnPropertyChanged("GradeLevel"); }
         }
 
         /// <summary>
         /// Command saves changes to the originally selected scout and closes the edit session.
         /// </summary>
-        public ICommand Ok { get; private set; }
+        public ICommand Ok { get; init; }
 
         /// <summary>
         /// Command restores the data from the originally selected scout and closes the edit session.
         /// </summary>
-        public ICommand Cancel { get; private set; }
+        public ICommand Cancel { get; init; }
 
         /// <summary>
         /// Event will be fired that requests the edit session to close.
@@ -81,9 +71,9 @@ namespace ContextMenus.ViewModels
 
             // Initialize the properties using the corresponding properties from the incoming scout.
             //
-            this.Name = scout.Name;
-            this.Sold = scout.Sold;
-            this.GradeLevel = scout.GradeLevel;
+            Name = scout.Name;
+            Sold = scout.Sold;
+            GradeLevel = scout.GradeLevel;
 
             // Create the "Ok" command to save the data from the view model back to the originally
             // selected scout and to fire off an event stating that we're ready to close.
@@ -91,9 +81,9 @@ namespace ContextMenus.ViewModels
             Ok = new RelayCommand(
                 (p) =>
                 {
-                    Scout.Name = this.Name;
-                    Scout.Sold = this.Sold;
-                    Scout.GradeLevel = this.GradeLevel;
+                    Scout.Name = Name;
+                    Scout.Sold = Sold;
+                    Scout.GradeLevel = GradeLevel;
                     CloseRequested?.Invoke(true);
                 },
                 (p) => !string.IsNullOrWhiteSpace(Name)
@@ -105,9 +95,9 @@ namespace ContextMenus.ViewModels
             Cancel = new RelayCommand(
                 (p) =>
                 {
-                    this.Name = Scout.Name;
-                    this.Sold = Scout.Sold;
-                    this.GradeLevel = Scout.GradeLevel;
+                    Name = Scout.Name;
+                    Sold = Scout.Sold;
+                    GradeLevel = Scout.GradeLevel;
                     CloseRequested?.Invoke(false);
                 }
             );

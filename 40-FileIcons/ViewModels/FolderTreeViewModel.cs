@@ -39,22 +39,22 @@ namespace FileIcons.ViewModels
         /// <summary>
         /// Collection of child view models (files/folders).
         /// </summary>
-        public ObservableCollection<BaseViewModel> Children { get; private set; }
+        public ObservableCollection<BaseViewModel> Children { get; } = new ObservableCollection<BaseViewModel>();
 
         /// <summary>
         /// Command puts up UI to browse for a folder.
         /// </summary>
-        public ICommand Browse { get; private set; }
+        public ICommand Browse { get; init; }
 
         /// <summary>
         /// Command displays information about this application.
         /// </summary>
-        public ICommand About { get; private set; }
+        public ICommand About { get; init; }
 
         /// <summary>
         /// Command shuts down the application.
         /// </summary>
-        public ICommand Exit { get; private set; }
+        public ICommand Exit { get; init; }
 
         /// <summary>
         /// Event will be fired requesting that UI be presented for browsing a folder.
@@ -76,14 +76,10 @@ namespace FileIcons.ViewModels
         /// </summary>
         public FolderTreeViewModel()
         {
-            // Create the child collection for all files and sub-folders within the selected folder.
-            //
-            this.Children = new ObservableCollection<BaseViewModel>();
-
             // Create the "Browse" command. The handler code fires an event requesting that UI be
             // be presented to allow for browsing a folder and returns the resulting selection.
             //
-            this.Browse = new RelayCommand(
+            Browse = new RelayCommand(
                 (p) =>
                 {
                     string selectedPath = CurrentPath;
@@ -97,12 +93,12 @@ namespace FileIcons.ViewModels
             // Create the "About" command. The handler code fires an event that application info
             // was requested and allows the event handlers to display this information accordingly.
             //
-            this.About = new RelayCommand((p) => { AboutRequested?.Invoke(); });
+            About = new RelayCommand((p) => { AboutRequested?.Invoke(); });
 
             // Create the "Exit" command. The handler code fires an event that a close was
             // requested and allows the event handlers to shut down the application accordingly.
             //
-            this.Exit = new RelayCommand((p) => { CloseRequested?.Invoke(); });
+            Exit = new RelayCommand((p) => { CloseRequested?.Invoke(); });
         }
 
         /// <summary>

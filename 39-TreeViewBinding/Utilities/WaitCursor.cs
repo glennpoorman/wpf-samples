@@ -16,7 +16,7 @@ namespace TreeViewBinding.Utilities
         /// <summary>
         /// The original cursor in place when this object was instanced.
         /// </summary>
-        private Cursor oldCursor;
+        private readonly Cursor oldCursor;
 
         /// <summary>
         /// Cursor constructor installs the wait cursor.

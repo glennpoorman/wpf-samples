@@ -19,7 +19,7 @@ namespace ContextMenus.ViewModels
         /// <summary>
         /// The public main collection of scouts (view models);
         /// </summary>
-        public ObservableCollection<ScoutViewModel> Scouts { get; private set; }
+        public ObservableCollection<ScoutViewModel> Scouts { get; } = new ObservableCollection<ScoutViewModel>();
 
         /// <summary>
         /// The currently selected item.
@@ -29,37 +29,37 @@ namespace ContextMenus.ViewModels
         /// <summary>
         /// Command adds a new scout to the collection.
         /// </summary>
-        public ICommand AddScout { get; private set; }
+        public ICommand AddScout { get; init; }
 
         /// <summary>
         /// Command interacts with the user to allow editing of the currently selected scout.
         /// </summary>
-        public ICommand EditScout { get; private set; }
+        public ICommand EditScout { get; init; }
 
         /// <summary>
         /// Command deletes the currently selected scout.
         /// </summary>
-        public ICommand DeleteScout { get; private set; }
+        public ICommand DeleteScout { get; init; }
 
         /// <summary>
         /// Command adds one sale to the tally of the currently selected scout.
         /// </summary>
-        public ICommand AddSale { get; private set; }
+        public ICommand AddSale { get; init; }
 
         /// <summary>
         /// Command subtracts one sale from the tally of the currently selected scout.
         /// </summary>
-        public ICommand SubtractSale { get; private set; }
+        public ICommand SubtractSale { get; init; }
 
         /// <summary>
         /// Command displays information about this application.
         /// </summary>
-        public ICommand About { get; private set; }
+        public ICommand About { get; init; }
 
         /// <summary>
         /// Command shuts down the application.
         /// </summary>
-        public ICommand Exit { get; private set; }
+        public ICommand Exit { get; init; }
 
         /// <summary>
         /// Event will be fired that requests the application to close.
@@ -81,10 +81,6 @@ namespace ContextMenus.ViewModels
         /// </summary>
         public ScoutsViewModel()
         {
-            // Create the main collection of scout view models.
-            //
-            this.Scouts = new ObservableCollection<ScoutViewModel>();
-
             // Create the "Add Scout" command. The handler code adds a new scout to the private
             // collection. A new view model representing that scout is also created and added to
             // the public collection of scout view models.
@@ -92,7 +88,7 @@ namespace ContextMenus.ViewModels
             AddScout = new RelayCommand(
                 (p) =>
                 {
-                    Scout scout = new Scout() { Name = "New Scout" };
+                    Scout scout = new() { Name = "New Scout" };
                     scouts.Add(scout);
                     Scouts.Add(new ScoutViewModel(scout));
                 }
