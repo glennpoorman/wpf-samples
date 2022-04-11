@@ -25,7 +25,7 @@ namespace FileIcons.Utilities
         /// <summary>
         /// Dictionary maps file suffixes to image source.
         /// </summary>
-        private static Dictionary<string, ImageSource> theMap = new Dictionary<string, ImageSource>();
+        private static readonly Dictionary<string, ImageSource> theMap = new();
 
         /// <summary>
         /// Return the file image source corresponding to the given file.

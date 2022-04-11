@@ -9,7 +9,8 @@ namespace AboutBox
     /// </summary>
     /// <remarks>
     /// Much of this code was lifted from the about boxes that are auto-generated when creating
-    /// a Windows Forms app.
+    /// a Windows Forms app. Note that for these properties to work, the corresponding values
+    /// must be filled in in the project properties "Package" tab.
     /// </remarks>
     public partial class AboutDialog : Window
     {
@@ -34,7 +35,7 @@ namespace AboutBox
         /// The property is fetched from the the executing assembly information explicitly filled
         /// out in the app properties "Assembly Information" dialog.
         /// </remarks>
-        public string AssemblyTitle
+        public static string AssemblyTitle
         {
             get
             {
@@ -50,7 +51,7 @@ namespace AboutBox
         /// The property is fetched from the the executing assembly information explicitly filled
         /// out in the app properties "Assembly Information" dialog.
         /// </remarks>
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -66,7 +67,7 @@ namespace AboutBox
         /// The property is fetched from the the executing assembly information explicitly filled
         /// out in the app properties "Assembly Information" dialog.
         /// </remarks>
-        public string AssemblyVersion
+        public static string AssemblyVersion
         {
             get => "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
@@ -78,7 +79,7 @@ namespace AboutBox
         /// The property is fetched from the the executing assembly information explicitly filled
         /// out in the app properties "Assembly Information" dialog.
         /// </remarks>
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -92,14 +93,10 @@ namespace AboutBox
         /// </summary>
         /// <typeparam name="T">The attribute type to query for.</typeparam>
         /// <returns>The attribute value.</returns>
-        private T GetAssemblyAttributes<T>() where T : Attribute
+        private static T GetAssemblyAttributes<T>() where T : Attribute
         {
             object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(T), true);
-            if (attributes == null || attributes.Length == 0)
-            {
-                return null;
-            }
-            return (T)attributes[0];
+            return (attributes == null || attributes.Length == 0) ? null : (T)attributes[0];
         }
     }
 }

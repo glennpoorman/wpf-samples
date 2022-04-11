@@ -38,6 +38,7 @@ namespace TreeViewBinding.Utilities
         public void Dispose()
         {
             Mouse.OverrideCursor = oldCursor;
+            GC.SuppressFinalize(this);
         }
     }
 }

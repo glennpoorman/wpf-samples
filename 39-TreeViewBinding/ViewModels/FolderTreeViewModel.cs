@@ -121,7 +121,7 @@ namespace TreeViewBinding.ViewModels
         {
             // Put up a wait cursor as high level folder could take a while.
             //
-            using (WaitCursor waitCursor = new WaitCursor())
+            using (WaitCursor waitCursor = new())
             {
                 // Clear out the old child list.
                 //

@@ -59,7 +59,7 @@ namespace Dialogs
             // Create the edit window for the selected scout passing in the scout itself along
             // with the parent window (this).
             //
-            EditDialog editWindow = new EditDialog(this, CurrentScout);
+            EditDialog editWindow = new(this, CurrentScout);
 
             // Call "ShowDialog" to display the window as a modal dialog.
             //
@@ -106,7 +106,7 @@ namespace Dialogs
         /// <param name="e">An object containing the event data.</param>
         private void AboutClick(object sender, RoutedEventArgs e)
         {
-            AboutDialog aboutDialog = new AboutDialog(this);
+            AboutDialog aboutDialog = new(this);
             _ = aboutDialog.ShowDialog();
         }
 

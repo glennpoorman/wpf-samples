@@ -56,7 +56,7 @@ namespace CommandsXAML
         /// <param name="e">An object containing the event data.</param>
         private void EditScoutHandler(object sender, ExecutedRoutedEventArgs e)
         {
-            EditDialog editWindow = new EditDialog(this, CurrentScout);
+            EditDialog editWindow = new(this, CurrentScout);
             _ = editWindow.ShowDialog();
         }
 
@@ -100,7 +100,7 @@ namespace CommandsXAML
         /// <param name="e">An object containing the event data.</param>
         private void AboutHandler(object sender, ExecutedRoutedEventArgs e)
         {
-            AboutDialog aboutDialog = new AboutDialog(this);
+            AboutDialog aboutDialog = new(this);
             _ = aboutDialog.ShowDialog();
         }
 

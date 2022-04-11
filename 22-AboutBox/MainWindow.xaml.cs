@@ -24,7 +24,7 @@ namespace AboutBox
         {
             // Create the about dialog window passing this window in as the owner.
             //
-            AboutDialog aboutDialog = new AboutDialog(this);
+            AboutDialog aboutDialog = new(this);
 
             // Call the "ShowDialog" method to show the window.
             //

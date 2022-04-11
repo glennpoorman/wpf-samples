@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeViewBinding", "TreeViewBinding.csproj", "{03B9125E-8CC4-4BA7-85EA-ADE837890320}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TreeViewBinding", "TreeViewBinding.csproj", "{91B18A0A-504A-43E2-B761-2B10A10DB102}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{03B9125E-8CC4-4BA7-85EA-ADE837890320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03B9125E-8CC4-4BA7-85EA-ADE837890320}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03B9125E-8CC4-4BA7-85EA-ADE837890320}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03B9125E-8CC4-4BA7-85EA-ADE837890320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B18A0A-504A-43E2-B761-2B10A10DB102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B18A0A-504A-43E2-B761-2B10A10DB102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B18A0A-504A-43E2-B761-2B10A10DB102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B18A0A-504A-43E2-B761-2B10A10DB102}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3B5714B-BB1C-4E3E-B37A-789E3DEED2FB}
 	EndGlobalSection
 EndGlobal

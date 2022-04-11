@@ -41,7 +41,7 @@ namespace FileIcons
         {
             // Create the Windows Forms folder browser dialog an initialize the selected path.
             //
-            FolderBrowserDialog browseDialog = new FolderBrowserDialog() { SelectedPath = currentPath };
+            FolderBrowserDialog browseDialog = new() { SelectedPath = currentPath };
 
             // Put up the browser dialog and return false if the user cancels.
             //

@@ -38,6 +38,7 @@ namespace FileIcons.Utilities
         public void Dispose()
         {
             Mouse.OverrideCursor = oldCursor;
+            GC.SuppressFinalize(this);
         }
     }
 }

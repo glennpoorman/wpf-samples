@@ -37,7 +37,7 @@ namespace StaticResource
         /// <summary>
         /// Assembly description property.
         /// </summary>
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -49,7 +49,7 @@ namespace StaticResource
         /// <summary>
         /// Assembly version property.
         /// </summary>
-        public string AssemblyVersion
+        public static string AssemblyVersion
         {
             get => "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
@@ -57,7 +57,7 @@ namespace StaticResource
         /// <summary>
         /// Assembly copyright property.
         /// </summary>
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -71,7 +71,7 @@ namespace StaticResource
         /// </summary>
         /// <typeparam name="T">The attribute type to query for.</typeparam>
         /// <returns>The attribute value.</returns>
-        private T GetAssemblyAttributes<T>() where T : Attribute
+        private static T GetAssemblyAttributes<T>() where T : Attribute
         {
             object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(T), true);
             if (attributes == null || attributes.Length == 0)

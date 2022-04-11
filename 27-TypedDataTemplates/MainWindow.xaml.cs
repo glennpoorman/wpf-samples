@@ -110,7 +110,7 @@ namespace TypedDataTemplates
         /// <param name="e">An object containing the event data.</param>
         private void AboutClick(object sender, RoutedEventArgs e)
         {
-            AboutDialog aboutDialog = new AboutDialog(this);
+            AboutDialog aboutDialog = new(this);
             _ = aboutDialog.ShowDialog();
         }
 

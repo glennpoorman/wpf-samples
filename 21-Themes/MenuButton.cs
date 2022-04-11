@@ -116,9 +116,11 @@ namespace Themes
         {
             if (ContextMenu == null)
             {
-                ContextMenu = new ContextMenu();
-                ContextMenu.PlacementTarget = this;
-                ContextMenu.Placement = PlacementMode.Bottom;
+                ContextMenu = new ContextMenu()
+                {
+                    PlacementTarget = this,
+                    Placement = PlacementMode.Bottom
+                };
                 ContextMenu.Opened += ((sender, routedEventArgs) => IsContextMenuOpen = true);
                 ContextMenu.Closed += ((sender, routedEventArgs) => IsContextMenuOpen = false);
             }

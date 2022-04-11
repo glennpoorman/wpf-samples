@@ -25,7 +25,7 @@ namespace ViewModels
         /// <summary>
         /// Assembly title property.
         /// </summary>
-        public string AssemblyTitle
+        public static string AssemblyTitle
         {
             get
             {
@@ -37,7 +37,7 @@ namespace ViewModels
         /// <summary>
         /// Assembly description property.
         /// </summary>
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -49,7 +49,7 @@ namespace ViewModels
         /// <summary>
         /// Assembly version property.
         /// </summary>
-        public string AssemblyVersion
+        public static string AssemblyVersion
         {
             get => "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
@@ -57,7 +57,7 @@ namespace ViewModels
         /// <summary>
         /// Assembly copyright property.
         /// </summary>
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -71,14 +71,10 @@ namespace ViewModels
         /// </summary>
         /// <typeparam name="T">The attribute type to query for.</typeparam>
         /// <returns>The attribute value.</returns>
-        private T GetAssemblyAttributes<T>() where T : Attribute
+        private static T GetAssemblyAttributes<T>() where T : Attribute
         {
             object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(T), true);
-            if (attributes == null || attributes.Length == 0)
-            {
-                return null;
-            }
-            return (T)attributes[0];
+            return (attributes == null || attributes.Length == 0) ? null : (T)attributes[0];
         }
     }
 }

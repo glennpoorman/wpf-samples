@@ -14,7 +14,7 @@ namespace MVVM.ViewModels
         /// <summary>
         /// The private main collection of scouts (models).
         /// </summary>
-        private readonly Scouts scouts = new Scouts();
+        private readonly Scouts scouts = new();
 
         /// <summary>
         /// The public main collection of scouts (view models);
