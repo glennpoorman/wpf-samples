@@ -11,10 +11,7 @@ namespace Themes
         /// <summary>
         /// Main window class constructor.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         /// <summary>
         /// Event handler set for all of the main window buttons except for the "Close" buttons.
@@ -55,10 +52,7 @@ namespace Themes
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseButtonClick(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
         /// Called when any of the items in the menu button are clicked.

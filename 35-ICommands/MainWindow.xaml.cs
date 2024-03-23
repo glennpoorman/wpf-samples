@@ -45,37 +45,37 @@ namespace ICommands
         /// <summary>
         /// Command adds a new scout to the collection.
         /// </summary>
-        public ICommand AddScout { get; init; }
+        public ICommand AddScout { get; }
 
         /// <summary>
         /// Command interacts with the user to allow editing of the currently selected scout.
         /// </summary>
-        public ICommand EditScout { get; init; }
+        public ICommand EditScout { get; }
 
         /// <summary>
         /// Command deletes the currently selected scout.
         /// </summary>
-        public ICommand DeleteScout { get; init; }
+        public ICommand DeleteScout { get; }
 
         /// <summary>
         /// Command adds one sale to the tally of the currently selected scout.
         /// </summary>
-        public ICommand AddSale { get; init; }
+        public ICommand AddSale { get; }
 
         /// <summary>
         /// Command subtracts one sale from the tally of the currently selected scout.
         /// </summary>
-        public ICommand SubtractSale { get; init; }
+        public ICommand SubtractSale { get; }
 
         /// <summary>
         /// Command displays information about this application.
         /// </summary>
-        public ICommand About { get; init; }
+        public ICommand About { get; }
 
         /// <summary>
         /// Command shuts down the application.
         /// </summary>
-        public ICommand Exit { get; init; }
+        public ICommand Exit { get; }
 
         /// <summary>
         /// Main window class constructor.
@@ -122,10 +122,7 @@ namespace ICommands
             // scout.
             //
             EditScout = new RelayCommand(
-                (p) =>
-                {
-                    _ = new EditDialog(this, CurrentScout).ShowDialog();
-                },
+                (p) => _ = new EditDialog(this, CurrentScout).ShowDialog(),
                 (p) => Scouts.Count > 0 && CurrentScout != null
             );
 
@@ -134,10 +131,7 @@ namespace ICommands
             // collection count is greater than zero and that we have a currently selected scout.
             //
             DeleteScout = new RelayCommand(
-                (p) =>
-                {
-                    _ = Scouts.Remove(CurrentScout);
-                },
+                (p) => _ = Scouts.Remove(CurrentScout),
                 (p) => Scouts.Count > 0 && CurrentScout != null
             );
 
@@ -146,10 +140,7 @@ namespace ICommands
             // currently selected scout.
             //
             AddSale = new RelayCommand(
-                (p) =>
-                {
-                    CurrentScout.Sold++;
-                },
+                (p) => CurrentScout.Sold++,
                 (p) => CurrentScout != null
             );
 
@@ -172,20 +163,14 @@ namespace ICommands
             // Create the "About" command. The handler code brings up the about dialog box.
             //
             About = new RelayCommand(
-                (p) =>
-                {
-                    _ = new AboutDialog(this).ShowDialog();
-                }
+                (p) => _ = new AboutDialog(this).ShowDialog()
             );
 
             // Create the "Close" command. The handler code closes the window shutting down the
             // application.
             //
             Exit = new RelayCommand(
-                (p) =>
-                {
-                    Close();
-                }
+                (p) => Close()
             );
         }
 

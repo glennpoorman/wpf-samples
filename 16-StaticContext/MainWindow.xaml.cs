@@ -17,10 +17,7 @@ namespace StaticContext
         /// result. Doing that repeatedly in the code looks a little ugly though so create a "Scout"
         /// property here to do that for us.
         /// </remarks>
-        public Scout Scout
-        {
-            get => (Scout)DataContext;
-        }
+        public Scout Scout => (Scout)DataContext;
 
         /// <summary>
         /// Main window class constructor.
@@ -40,10 +37,7 @@ namespace StaticContext
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void AddSaleButtonClick(object sender, RoutedEventArgs e)
-        {
-            Scout.Sold++;
-        }
+        private void AddSaleButtonClick(object sender, RoutedEventArgs e) => Scout.Sold++;
 
         /// <summary>
         /// Button click event handler for the "Subtract Sale" button.
@@ -63,9 +57,6 @@ namespace StaticContext
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseButtonClick(object sender, RoutedEventArgs e) => Close();
     }
 }

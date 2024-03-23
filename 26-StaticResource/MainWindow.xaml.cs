@@ -12,10 +12,7 @@ namespace StaticResource
         /// <summary>
         /// The data context is a single instance of the scouts collection.
         /// </summary>
-        public Scouts Scouts
-        {
-            get => (Scouts)DataContext;
-        }
+        public Scouts Scouts => (Scouts)DataContext;
 
         /// <summary>
         /// The currently selected scout in the UI view of the collection.
@@ -32,10 +29,7 @@ namespace StaticResource
         /// <summary>
         /// Main window class constructor.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         /// <summary>
         /// Click event handler for the "Add Scout" menu item.
@@ -53,20 +47,16 @@ namespace StaticResource
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void DeleteScoutClick(object sender, RoutedEventArgs e)
-        {
+        private void DeleteScoutClick(object sender, RoutedEventArgs e) =>
             _ = Scouts.Remove(CurrentScout);
-        }
 
         /// <summary>
         /// Button click event handler for the "Add Sale" button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void AddSaleClick(object sender, RoutedEventArgs e)
-        {
+        private void AddSaleClick(object sender, RoutedEventArgs e) =>
             CurrentScout.Sold++;
-        }
 
         /// <summary>
         /// Button click event handler for the "Subtract Sale" button.
@@ -97,9 +87,6 @@ namespace StaticResource
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void ExitClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void ExitClick(object sender, RoutedEventArgs e) => Close();
     }
 }

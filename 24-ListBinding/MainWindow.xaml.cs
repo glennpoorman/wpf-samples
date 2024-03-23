@@ -12,10 +12,7 @@ namespace ListBinding
         /// <summary>
         /// The data context is a single instance of the scouts collection.
         /// </summary>
-        public Scouts Scouts
-        {
-            get => (Scouts)DataContext;
-        }
+        public Scouts Scouts => (Scouts)DataContext;
 
         /// <summary>
         /// The currently selected scout in the UI view of the collection.
@@ -39,10 +36,7 @@ namespace ListBinding
         /// <summary>
         /// Main window class constructor.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         /// <summary>
         /// Click event handler for the "Add Scout" menu item.
@@ -120,9 +114,6 @@ namespace ListBinding
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void ExitClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void ExitClick(object sender, RoutedEventArgs e) => Close();
     }
 }

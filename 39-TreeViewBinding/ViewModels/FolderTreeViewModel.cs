@@ -53,17 +53,17 @@ namespace TreeViewBinding.ViewModels
         /// <summary>
         /// Command puts up UI to browse for a folder.
         /// </summary>
-        public ICommand Browse { get; init; }
+        public ICommand Browse { get; }
 
         /// <summary>
         /// Command displays information about this application.
         /// </summary>
-        public ICommand About { get; init; }
+        public ICommand About { get; }
 
         /// <summary>
         /// Command shuts down the application.
         /// </summary>
-        public ICommand Exit { get; init; }
+        public ICommand Exit { get; }
 
         /// <summary>
         /// Event will be fired requesting that UI be presented for browsing a folder.
@@ -102,12 +102,12 @@ namespace TreeViewBinding.ViewModels
             // Create the "About" command. The handler code fires an event that application info
             // was requested and allows the event handlers to display this information accordingly.
             //
-            About = new RelayCommand((p) => { AboutRequested?.Invoke(); });
+            About = new RelayCommand((p) => AboutRequested?.Invoke());
 
             // Create the "Exit" command. The handler code fires an event that a close was
             // requested and allows the event handlers to shut down the application accordingly.
             //
-            Exit = new RelayCommand((p) => { CloseRequested?.Invoke(); });
+            Exit = new RelayCommand((p) => CloseRequested?.Invoke());
         }
 
         /// <summary>
@@ -117,21 +117,20 @@ namespace TreeViewBinding.ViewModels
         {
             // Put up a wait cursor as high level folder could take a while.
             //
-            using (WaitCursor waitCursor = new())
-            {
-                // Clear out the old child list.
-                //
-                Children.Clear();
+            using WaitCursor waitCursor = new();
 
-                // Create a single folder view model representing the selected path. The rest of
-                // the traversal will happen inside of any child folders that we come upon.
-                //
-                // Note that by default, the folders will all be closed in the tree display. We
-                // want the very top folder to be opened/expanded though so we set "IsOpen" to true
-                // which will cause the top node in the tree view to appear expanded.
-                //
-                Children.Add(new FolderViewModel(CurrentPath) { IsOpen = true });
-            }
+            // Clear out the old child list.
+            //
+            Children.Clear();
+
+            // Create a single folder view model representing the selected path. The rest of
+            // the traversal will happen inside of any child folders that we come upon.
+            //
+            // Note that by default, the folders will all be closed in the tree display. We
+            // want the very top folder to be opened/expanded though so we set "IsOpen" to true
+            // which will cause the top node in the tree view to appear expanded.
+            //
+            Children.Add(new FolderViewModel(CurrentPath) { IsOpen = true });
         }
     }
 }

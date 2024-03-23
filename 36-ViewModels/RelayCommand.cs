@@ -22,10 +22,7 @@ namespace ViewModels
         /// Command constructor.
         /// </summary>
         /// <param name="execute">The delegate to be called when the command executes.</param>
-        public RelayCommand(Action<object> execute)
-        {
-            this.execute = execute;
-        }
+        public RelayCommand(Action<object> execute) => this.execute = execute;
 
         /// <summary>
         /// Command constructor.
@@ -43,19 +40,14 @@ namespace ViewModels
         /// </summary>
         /// <param name="parameter">Data used by the command.</param>
         /// <returns>True if this command can be executed; otherwise false.</returns>
-        public bool CanExecute(object parameter)
-        {
-            return (canExecute == null) ? true : canExecute(parameter);
-        }
+        public bool CanExecute(object parameter) =>
+            (canExecute == null) ? true : canExecute(parameter);
 
         /// <summary>
         /// Called when the command is invoked.
         /// </summary>
         /// <param name="parameter">Data used by the command.</param>
-        public void Execute(object parameter)
-        {
-            execute?.Invoke(parameter);
-        }
+        public void Execute(object parameter) => execute?.Invoke(parameter);
 
         /// <summary>
         /// Occurs when changes occur that affect whether or not the command should execute.

@@ -10,15 +10,12 @@ namespace Toolbar
         /// <summary>
         /// The original scout that was selected to edit.
         /// </summary>
-        public Scout Scout { get; init; }
+        public Scout Scout { get; }
 
         /// <summary>
         /// The copy of the scout (data context) that will be bound to the window elements.
         /// </summary>
-        public Scout ScoutProxy
-        {
-            get => (Scout)DataContext;
-        }
+        public Scout ScoutProxy => (Scout)DataContext;
 
         /// <summary>
         /// Edit dialog window constructor.

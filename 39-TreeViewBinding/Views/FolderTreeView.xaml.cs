@@ -11,17 +11,11 @@ namespace TreeViewBinding.Views
         /// <summary>
         /// The folder tree view model.
         /// </summary>
-        public FolderTreeViewModel ViewModel
-        {
-            get => (FolderTreeViewModel)DataContext;
-        }
+        public FolderTreeViewModel ViewModel => (FolderTreeViewModel)DataContext;
 
         /// <summary>
         /// Folder tree view constructor.
         /// </summary>
-        public FolderTreeView()
-        {
-            InitializeComponent();
-        }
+        public FolderTreeView() => InitializeComponent();
     }
 }

@@ -96,10 +96,7 @@ namespace ViewModels
             // Create the "Add Scout" command. The handler code adds a new scout to the collection.
             //
             AddScout = new RelayCommand(
-                (p) =>
-                {
-                    Scouts.Add(new Scout() { Name = "New Scout" });
-                }
+                (p) => Scouts.Add(new Scout() { Name = "New Scout" })
             );
 
             // Create the "EditScout" command. The handler code fires an event that an edit of the
@@ -123,10 +120,7 @@ namespace ViewModels
             // a currently selected item.
             //
             DeleteScout = new RelayCommand(
-                (p) =>
-                {
-                    _ = Scouts.Remove(SelectedItem);
-                },
+                (p) => _ = Scouts.Remove(SelectedItem),
                 (p) => SelectedItem != null
             );
 
@@ -135,10 +129,7 @@ namespace ViewModels
             // currently selected item.
             //
             AddSale = new RelayCommand(
-                (p) =>
-                {
-                    SelectedItem.Sold++;
-                },
+                (p) => SelectedItem.Sold++,
                 (p) => SelectedItem != null
             );
 
@@ -162,20 +153,14 @@ namespace ViewModels
             // was requested and allows the event handlers to display this information accordingly.
             //
             About = new RelayCommand(
-                (p) =>
-                {
-                    AboutRequested?.Invoke();
-                }
+                (p) => AboutRequested?.Invoke()
             );
 
             // Create the "Close" command. The handler code fires an event that a close was
             // requested and allows the event handlers to shut down the application accordingly.
             //
             Exit = new RelayCommand(
-                (p) =>
-                {
-                    CloseRequested?.Invoke();
-                }
+                (p) => CloseRequested?.Invoke()
             );
         }
     }

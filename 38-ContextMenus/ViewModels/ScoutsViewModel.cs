@@ -29,37 +29,37 @@ namespace ContextMenus.ViewModels
         /// <summary>
         /// Command adds a new scout to the collection.
         /// </summary>
-        public ICommand AddScout { get; init; }
+        public ICommand AddScout { get; }
 
         /// <summary>
         /// Command interacts with the user to allow editing of the currently selected scout.
         /// </summary>
-        public ICommand EditScout { get; init; }
+        public ICommand EditScout { get; }
 
         /// <summary>
         /// Command deletes the currently selected scout.
         /// </summary>
-        public ICommand DeleteScout { get; init; }
+        public ICommand DeleteScout { get; }
 
         /// <summary>
         /// Command adds one sale to the tally of the currently selected scout.
         /// </summary>
-        public ICommand AddSale { get; init; }
+        public ICommand AddSale { get; }
 
         /// <summary>
         /// Command subtracts one sale from the tally of the currently selected scout.
         /// </summary>
-        public ICommand SubtractSale { get; init; }
+        public ICommand SubtractSale { get; }
 
         /// <summary>
         /// Command displays information about this application.
         /// </summary>
-        public ICommand About { get; init; }
+        public ICommand About { get; }
 
         /// <summary>
         /// Command shuts down the application.
         /// </summary>
-        public ICommand Exit { get; init; }
+        public ICommand Exit { get; }
 
         /// <summary>
         /// Event will be fired that requests the application to close.
@@ -158,20 +158,14 @@ namespace ContextMenus.ViewModels
             // was requested and allows the event handlers to display this information accordingly.
             //
             About = new RelayCommand(
-                (p) =>
-                {
-                    AboutRequested?.Invoke();
-                }
+                (p) => AboutRequested?.Invoke()
             );
 
             // Create the "Close" command. The handler code fires an event that a close was
             // requested and allows the event handlers to shut down the application accordingly.
             //
             Exit = new RelayCommand(
-                (p) =>
-                {
-                    CloseRequested?.Invoke();
-                }
+                (p) => CloseRequested?.Invoke()
             );
         }
     }

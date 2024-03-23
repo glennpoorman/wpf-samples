@@ -10,9 +10,6 @@ namespace MultiBinding
         /// <summary>
         /// Main window class constructor.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
     }
 }

@@ -13,10 +13,7 @@ namespace CommandsCode
         /// <summary>
         /// The data context is a single instance of the scouts collection.
         /// </summary>
-        public Scouts Scouts
-        {
-            get => (Scouts)DataContext;
-        }
+        public Scouts Scouts => (Scouts)DataContext;
 
         /// <summary>
         /// The currently selected scout in the UI view of the collection.
@@ -62,14 +59,8 @@ namespace CommandsCode
             //
             CommandBindings.Add(
                 new CommandBinding(CustomCommands.EditScout,
-                    (s, e) =>
-                    {
-                        _ = new EditDialog(this, CurrentScout).ShowDialog();
-                    },
-                    (s, e) =>
-                    {
-                        e.CanExecute = (Scouts.Count > 0 && CurrentScout != null);
-                    }
+                    (s, e) => _ = new EditDialog(this, CurrentScout).ShowDialog(),
+                    (s, e) => e.CanExecute = (Scouts.Count > 0 && CurrentScout != null)
                )
             );
 
@@ -80,14 +71,8 @@ namespace CommandsCode
             //
             CommandBindings.Add(
                 new CommandBinding(CustomCommands.DeleteScout,
-                    (s, e) =>
-                    {
-                        _ = Scouts.Remove(CurrentScout);
-                    },
-                    (s, e) =>
-                    {
-                        e.CanExecute = (Scouts.Count > 0 && CurrentScout != null);
-                    }
+                    (s, e) => _ = Scouts.Remove(CurrentScout),
+                    (s, e) => e.CanExecute = (Scouts.Count > 0 && CurrentScout != null)
                 )
             );
 
@@ -97,15 +82,9 @@ namespace CommandsCode
             //
             CommandBindings.Add(
                 new CommandBinding(CustomCommands.AddSale,
-                    (s, e) =>
-                    {
-                        CurrentScout.Sold++;
-                    },
-                    (s, e) =>
-                    {
-                        e.CanExecute = (CurrentScout != null);
-                    }
-               )
+                    (s, e) => CurrentScout.Sold++,
+                    (s, e) => e.CanExecute = (CurrentScout != null)
+                )
             );
 
             // Add a command binding for the "SubtractSale" command. The handler code decrements the
@@ -122,10 +101,7 @@ namespace CommandsCode
                             CurrentScout.Sold--;
                         }
                     },
-                    (s, e) =>
-                    {
-                        e.CanExecute = (CurrentScout != null && CurrentScout.Sold > 0);
-                    }
+                    (s, e) => e.CanExecute = (CurrentScout != null && CurrentScout.Sold > 0)
                 )
             );
 
@@ -134,10 +110,7 @@ namespace CommandsCode
             //
             CommandBindings.Add(
                 new CommandBinding(CustomCommands.About,
-                    (s, e) =>
-                    {
-                        _ = new AboutDialog(this).ShowDialog();
-                    }
+                    (s, e) => _ = new AboutDialog(this).ShowDialog()
                 )
             );
 
@@ -146,10 +119,7 @@ namespace CommandsCode
             //
             CommandBindings.Add(
                 new CommandBinding(ApplicationCommands.Close,
-                    (s, e) =>
-                    {
-                        Close();
-                    }
+                    (s, e) => Close()
                 )
             );
         }

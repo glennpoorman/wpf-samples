@@ -37,9 +37,6 @@ namespace XAMLWindow
         /// <remarks>
         /// Note that this event handler was hooked up to the button in the XAML spec.
         /// </remarks>
-        private void ButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void ButtonClick(object sender, RoutedEventArgs e) => Close();
     }
 }

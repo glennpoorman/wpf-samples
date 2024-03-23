@@ -30,7 +30,7 @@ namespace TreeViewBinding.ViewModels
         /// <summary>
         /// The filename only portion of the path name.
         /// </summary>
-        public string Name { get => Path.GetFileName(FullName); }
+        public string Name => Path.GetFileName(FullName);
 
         /// <summary>
         /// Whether or not the current item is expanded in the browser.
@@ -53,9 +53,6 @@ namespace TreeViewBinding.ViewModels
         /// View model constructor.
         /// </summary>
         /// <param name="fullName">The full pathname of the file.</param>
-        public FileViewModel(string fullName)
-        {
-            FullName = fullName;
-        }
+        public FileViewModel(string fullName) => FullName = fullName;
     }
 }

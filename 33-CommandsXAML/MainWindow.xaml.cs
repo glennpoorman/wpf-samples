@@ -13,10 +13,7 @@ namespace CommandsXAML
         /// <summary>
         /// The data context is a single instance of the scouts collection.
         /// </summary>
-        public Scouts Scouts
-        {
-            get => (Scouts)DataContext;
-        }
+        public Scouts Scouts => (Scouts)DataContext;
 
         /// <summary>
         /// The currently selected scout in the UI view of the collection.
@@ -33,10 +30,7 @@ namespace CommandsXAML
         /// <summary>
         /// Main window class constructor.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         /// <summary>
         /// "AddScout" command handler adds a new scout to the collection.
@@ -65,20 +59,16 @@ namespace CommandsXAML
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void DeleteScoutHandler(object sender, ExecutedRoutedEventArgs e)
-        {
+        private void DeleteScoutHandler(object sender, ExecutedRoutedEventArgs e) =>
             _ = Scouts.Remove(CurrentScout);
-        }
 
         /// <summary>
         /// "AddSale" command handler adds to the sales tally of the currently selected scout.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void AddSaleHandler(object sender, ExecutedRoutedEventArgs e)
-        {
+        private void AddSaleHandler(object sender, ExecutedRoutedEventArgs e) =>
             CurrentScout.Sold++;
-        }
 
         /// <summary>
         /// "SubtractSale" command handler subtracts from the tally of the currently selected scout.
@@ -109,20 +99,15 @@ namespace CommandsXAML
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void CloseHandler(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseHandler(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
         /// "CanExecute" handler makes sure there is at least one scout in the collection.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void HasScouts(object sender, CanExecuteRoutedEventArgs e)
-        {
+        private void HasScouts(object sender, CanExecuteRoutedEventArgs e) =>
             e.CanExecute = (CurrentScout != null && Scouts.Count > 0);
-        }
 
         /// <summary>
         /// "CanExecute" handler for "SubtractSale" makes sure there is a currently selected scout
@@ -130,10 +115,8 @@ namespace CommandsXAML
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void CanSubtract(object sender, CanExecuteRoutedEventArgs e)
-        {
+        private void CanSubtract(object sender, CanExecuteRoutedEventArgs e) =>
             e.CanExecute = (CurrentScout != null && CurrentScout.Sold > 0);
-        }
 
         /// <summary>
         /// Event handler for a mouse double click in the list view.

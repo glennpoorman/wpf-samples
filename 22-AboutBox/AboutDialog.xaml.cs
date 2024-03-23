@@ -67,10 +67,8 @@ namespace AboutBox
         /// The property is fetched from the the executing assembly information explicitly filled
         /// out in the app properties "Assembly Information" dialog.
         /// </remarks>
-        public static string AssemblyVersion
-        {
-            get => "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        }
+        public static string AssemblyVersion =>
+            "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         /// <summary>
         /// Assembly copyright property.

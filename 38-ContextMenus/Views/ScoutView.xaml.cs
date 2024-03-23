@@ -20,9 +20,6 @@ namespace ContextMenus.Views
         /// <summary>
         /// Scout view constructor.
         /// </summary>
-        public ScoutView()
-        {
-            InitializeComponent();
-        }
+        public ScoutView() => InitializeComponent();
     }
 }

@@ -11,10 +11,7 @@ namespace GridMultiCell
         /// <summary>
         /// Main window class constructor.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         /// <summary>
         /// Event handler set for the three check boxes in the grid.
@@ -48,19 +45,14 @@ namespace GridMultiCell
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseButtonClick(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
         /// Button click event handler puts up a message stating that "Help" has been clicked.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void HelpButtonClick(object sender, RoutedEventArgs e)
-        {
+        private void HelpButtonClick(object sender, RoutedEventArgs e) =>
             _ = MessageBox.Show("Help!", Title);
-        }
     }
 }

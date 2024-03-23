@@ -16,10 +16,8 @@ namespace ICommands
         /// Utility used to fire off a property changed event.
         /// </summary>
         /// <param name="property">The name of the property that has changed.</param>
-        private void OnPropertyChanged(string property)
-        {
+        private void OnPropertyChanged(string property) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
 
         /// <summary>
         /// Scout name property.
@@ -66,9 +64,6 @@ namespace ICommands
         /// <summary>
         /// Validity property returns false if the scout name is empty.
         /// </summary>
-        public bool IsValid
-        {
-            get => !string.IsNullOrWhiteSpace(name);
-        }
+        public bool IsValid => !string.IsNullOrWhiteSpace(name);
     }
 }

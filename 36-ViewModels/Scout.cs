@@ -23,7 +23,7 @@ namespace ViewModels
         public string Name
         {
             get => name;
-            set { name = value;  OnPropertyChanged("Name"); OnPropertyChanged("IsValid"); }
+            set { name = value; OnPropertyChanged("Name"); OnPropertyChanged("IsValid"); }
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace ViewModels
         public uint Sold
         {
             get => sold;
-            set { sold = value;  OnPropertyChanged("Sold"); }
+            set { sold = value; OnPropertyChanged("Sold"); }
         }
 
         /// <summary>

@@ -84,24 +84,24 @@
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
                 <Button ToolTip="Add Scout" Command="{Binding AddScout}">
-                    <Image Source="../Resources/newButton.gif"/>
+                    <Image Source="../Resources/new-icon-32x32.png"/>
                 </Button>
                 <Button ToolTip="Edit Scout" Command="{Binding EditScout}">
-                    <Image Source="../Resources/propertiesButton.gif"/>
+                    <Image Source="../Resources/edit-icon-32x32.png"/>
                 </Button>
                 <Button ToolTip="Delete Scout" Command="{Binding DeleteScout}">
-                    <Image Source="../Resources/deleteButton.gif"/>
+                    <Image Source="../Resources/delete-icon-32x32.png"/>
                 </Button>
                 <Separator/>
                 <Button ToolTip="Add Sale" Command="{Binding AddSale}">
-                    <Image Source="../Resources/saleAddButton.gif"/>
+                    <Image Source="../Resources/add-icon-32x32.png"/>
                 </Button>
                 <Button ToolTip="Subtract Sale" Command="{Binding SubtractSale}">
-                    <Image Source="../Resources/saleSubButton.gif"/>
+                    <Image Source="../Resources/subtract-icon-32x32.png"/>
                 </Button>
                 <Separator/>
                 <Button ToolTip="About" Command="{Binding About}">
-                    <Image Source="../Resources/helpButton.gif"/>
+                    <Image Source="../Resources/help-icon-32x32.png"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>

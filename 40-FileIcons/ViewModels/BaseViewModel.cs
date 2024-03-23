@@ -25,7 +25,7 @@ namespace FileIcons.ViewModels
         /// <summary>
         /// The filename only portion of the path name.
         /// </summary>
-        public string Name { get => Path.GetFileName(FullName); }
+        public string Name => Path.GetFileName(FullName);
 
         /// <summary>
         /// Whether or not the current item is expanded in the browser.
@@ -48,9 +48,6 @@ namespace FileIcons.ViewModels
         /// View model constructor.
         /// </summary>
         /// <param name="fullName">The full pathname of the item.</param>
-        public BaseViewModel(string fullName)
-        {
-            FullName = fullName;
-        }
+        public BaseViewModel(string fullName) => FullName = fullName;
     }
 }

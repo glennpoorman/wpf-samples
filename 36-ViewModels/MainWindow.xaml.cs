@@ -13,10 +13,7 @@ namespace ViewModels
         /// <summary>
         /// The view model used as the data context on the window.
         /// </summary>
-        public ScoutsViewModel ViewModel
-        {
-            get => (ScoutsViewModel)DataContext;
-        }
+        public ScoutsViewModel ViewModel => (ScoutsViewModel)DataContext;
 
         /// <summary>
         /// Main window class constructor.
@@ -49,27 +46,20 @@ namespace ViewModels
             // Register a handler for when the view model wants to close. The handler code will
             // shut down the application.
             //
-            ViewModel.CloseRequested += () =>
-            {
-                Close();
-            };
+            ViewModel.CloseRequested += () => Close();
 
             // Register a handler for when the view model wants to display application information.
             // The handler code puts up the about dialog.
             //
             ViewModel.AboutRequested += () =>
-            {
                 _ = new AboutDialog(this).ShowDialog();
-            };
 
             // Register a handler for when the view model wants to put up UI to edit the selected
             // scout. The handler code takes the scout as a parameter and puts up the edit dialog
             // for editing of the scout.
             //
             ViewModel.EditRequested += (s) =>
-            {
                 _ = new EditDialog(this, s).ShowDialog();
-            };
         }
 
         /// <summary>
@@ -77,9 +67,7 @@ namespace ViewModels
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void ListDoubleClick(object sender, MouseButtonEventArgs e)
-        {
+        private void ListDoubleClick(object sender, MouseButtonEventArgs e) =>
             ViewModel.EditScout.Execute(null);
-        }
     }
 }

@@ -39,7 +39,7 @@ namespace CustomWindow
         /// <param name="e">An object containing the event data.</param>
         private void AppStartup(Object sender, StartupEventArgs e)
         {
-            Window window = new MainWindow();
+            MainWindow window = new();
             window.Show();
         }
     }

@@ -31,27 +31,20 @@ namespace MVVM
             // Register a handler for when the view model wants to close. The handler code will
             // shut down the application.
             //
-            scoutsView.ViewModel.CloseRequested += () =>
-            {
-                Close();
-            };
+            scoutsView.ViewModel.CloseRequested += () => Close();
 
             // Register a handler for when the view model wants to display application information.
             // The handler code puts up the about dialog.
             //
             scoutsView.ViewModel.AboutRequested += () =>
-            {
                 _ = new AboutDialog(this).ShowDialog();
-            };
 
             // Register a handler for when the view model wants to put up UI to edit the selected
             // scout. The handler code takes the scout as a parameter and puts up the edit dialog
             // for editing of the scout.
             //
             scoutsView.ViewModel.EditRequested += (s) =>
-            {
                 _ = new EditDialog(this, s).ShowDialog();
-            };
         }
     }
 }

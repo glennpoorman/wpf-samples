@@ -11,16 +11,16 @@ namespace ICommands
         /// <summary>
         /// The original scout that was selected to edit.
         /// </summary>
-        public Scout Scout { get; init; }
+        public Scout Scout { get; }
 
         // Property returns the scout proxy used as the data context.
         //
-        public Scout ScoutProxy { get; init; }
+        public Scout ScoutProxy { get; }
 
         /// <summary>
         /// Command saves changes to the originally selected scout and closes the edit session.
         /// </summary>
-        public ICommand Ok { get; init; }
+        public ICommand Ok { get; }
 
         /// <summary>
         /// Edit dialog window constructor.

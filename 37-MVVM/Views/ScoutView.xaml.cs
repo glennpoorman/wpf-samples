@@ -19,15 +19,12 @@ namespace MVVM.Views
         public ScoutViewModel ViewModel
         {
             get => (ScoutViewModel)DataContext;
-            set { DataContext = value; }
+            set => DataContext = value;
         }
 
         /// <summary>
         /// Scout view constructor.
         /// </summary>
-        public ScoutView()
-        {
-            InitializeComponent();
-        }
+        public ScoutView() => InitializeComponent();
     }
 }

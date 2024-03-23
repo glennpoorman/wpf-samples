@@ -23,12 +23,12 @@ namespace FileIcons
             // Register a handler for when the view model wants to display application information.
             // The handler code puts up the about dialog.
             //
-            folderTreeView.ViewModel.AboutRequested += () => { _ = new AboutDialog(this).ShowDialog(); };
+            folderTreeView.ViewModel.AboutRequested += () => _ = new AboutDialog(this).ShowDialog();
 
             // Register a handler for when the view model wants to close. The handler code will
             // shut down the application.
             //
-            folderTreeView.ViewModel.CloseRequested += () => { Close(); }; 
+            folderTreeView.ViewModel.CloseRequested += () => Close(); 
         }
 
         /// <summary>

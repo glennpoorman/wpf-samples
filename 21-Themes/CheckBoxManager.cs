@@ -21,10 +21,8 @@ namespace Themes
         /// Utility used to fire off a property changed event.
         /// </summary>
         /// <param name="property">The name of the property that has changed.</param>
-        private void OnPropertyChanged(string property)
-        {
+        private void OnPropertyChanged(string property) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
 
         /// <summary>
         /// Property is true if first checkbox is checked.

@@ -10,10 +10,7 @@ namespace Menus
         /// <summary>
         /// Single instance of the custom scout class.
         /// </summary>
-        public Scout Scout
-        {
-            get => (Scout)DataContext;
-        }
+        public Scout Scout => (Scout)DataContext;
 
         /// <summary>
         /// Main window class constructor.
@@ -32,10 +29,7 @@ namespace Menus
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void AddSaleClick(object sender, RoutedEventArgs e)
-        {
-            Scout.Sold++;
-        }
+        private void AddSaleClick(object sender, RoutedEventArgs e) => Scout.Sold++;
 
         /// <summary>
         /// Button click event handler for the "Subtract Sale" button.
@@ -66,9 +60,6 @@ namespace Menus
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void ExitClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void ExitClick(object sender, RoutedEventArgs e) => Close();
     }
 }

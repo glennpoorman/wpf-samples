@@ -12,10 +12,7 @@ namespace DockPanel
         /// <summary>
         /// Main window class constructor.
         /// </summary>
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        public MainWindow() => InitializeComponent();
 
         /// <summary>
         /// Event handler set for all of the buttons in the dock panel except for the "Clear" button.
@@ -51,10 +48,7 @@ namespace DockPanel
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object containing the event data.</param>
-        private void CloseButtonClick(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        private void CloseButtonClick(object sender, RoutedEventArgs e) => Close();
 
         /// <summary>
         /// Event handler set to handle "MouseDoubleClick" events in the list box.

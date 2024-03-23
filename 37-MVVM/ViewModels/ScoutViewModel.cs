@@ -17,7 +17,7 @@ namespace MVVM.ViewModels
         /// Note that the scout is now an auto-property and the set accessor is private making the
         /// constructor the only way that the scout can be set. See the constructor remarks.
         /// </remarks>
-        public Scout Scout { get; init; }
+        public Scout Scout { get; }
 
         /// <summary>
         /// The scout proxy used as the data context.
@@ -54,12 +54,12 @@ namespace MVVM.ViewModels
         /// <summary>
         /// Command saves changes to the originally selected scout and closes the edit session.
         /// </summary>
-        public ICommand Ok { get; init; }
+        public ICommand Ok { get; }
 
         /// <summary>
         /// Command restores the data from the originally selected scout and closes the edit session.
         /// </summary>
-        public ICommand Cancel { get; init; }
+        public ICommand Cancel { get; }
 
         /// <summary>
         /// Event will be fired that requests the edit session to close.

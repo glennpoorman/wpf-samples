@@ -49,10 +49,8 @@ namespace MVVM
         /// <summary>
         /// Assembly version property.
         /// </summary>
-        public static string AssemblyVersion
-        {
-            get => "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        }
+        public static string AssemblyVersion =>
+            "Version " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         /// <summary>
         /// Assembly copyright property.

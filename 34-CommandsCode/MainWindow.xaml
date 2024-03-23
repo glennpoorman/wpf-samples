@@ -73,24 +73,24 @@
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
                 <Button ToolTip="Add Scout" Command="local:CustomCommands.AddScout">
-                    <Image Source="Resources/newButton.gif"/>
+                    <Image Source="Resources/new-icon-32x32.png"/>
                 </Button>
                 <Button ToolTip="Edit Scout" Command="local:CustomCommands.EditScout">
-                    <Image Source="Resources/propertiesButton.gif"/>
+                    <Image Source="Resources/edit-icon-32x32.png"/>
                 </Button>
                 <Button ToolTip="Delete Scout" Command="local:CustomCommands.DeleteScout">
-                    <Image Source="Resources/deleteButton.gif"/>
+                    <Image Source="Resources/delete-icon-32x32.png"/>
                 </Button>
                 <Separator/>
                 <Button ToolTip="Add Sale" Command="local:CustomCommands.AddSale">
-                    <Image Source="Resources/saleAddButton.gif"/>
+                    <Image Source="Resources/add-icon-32x32.png"/>
                 </Button>
                 <Button ToolTip="Subtract Sale" Command="local:CustomCommands.SubtractSale">
-                    <Image Source="Resources/saleSubButton.gif"/>
+                    <Image Source="Resources/subtract-icon-32x32.png"/>
                 </Button>
                 <Separator/>
                 <Button ToolTip="About" Command="local:CustomCommands.About">
-                    <Image Source="Resources/helpButton.gif"/>
+                    <Image Source="Resources/help-icon-32x32.png"/>
                 </Button>
             </ToolBar>
         </ToolBarTray>

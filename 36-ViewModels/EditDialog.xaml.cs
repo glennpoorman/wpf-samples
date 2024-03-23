@@ -10,10 +10,7 @@ namespace ViewModels
         /// <summary>
         /// The view model used as the data context on the window.
         /// </summary>
-        public ScoutViewModel ViewModel
-        {
-            get => (ScoutViewModel)DataContext;
-        }
+        public ScoutViewModel ViewModel => (ScoutViewModel)DataContext;
  
         /// <summary>
         /// Edit dialog window constructor.
@@ -36,10 +33,7 @@ namespace ViewModels
             // an event when it wants to close. Here in the window we register a handler for
             // that event that sets "DialogResult" to true essentially closing the window.
             //
-            ViewModel.CloseRequested += () =>
-            {
-                DialogResult = true;
-            };
+            ViewModel.CloseRequested += () => DialogResult = true;
         }
     }
 }
